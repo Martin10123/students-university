@@ -1,0 +1,63 @@
+.content_all_info_list {
+  border-radius: 0.5rem;
+  box-shadow: 1px 1px 6px grey;
+  padding: 1rem;
+}
+
+.list_item {
+  display: grid;
+  gap: 1rem;
+  width: 100%;
+}
+
+.item,
+.content_collegeCareer {
+  align-items: center;
+  border-radius: 0.5rem;
+  box-shadow: 1px 1px 6px grey;
+  display: flex;
+  font-size: 1.2rem;
+  gap: 2rem;
+  padding: 0.8rem 0.5rem;
+}
+
+.content_collegeCareer {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin: 1rem 0 0 0;
+  width: 100%;
+}
+
+.content_collegeCareer p {
+  align-items: center;
+  gap: 2rem;
+  display: flex;
+}
+
+@media (min-width: 1000px) {
+  .content_all_info_list {
+    box-shadow: none;
+    padding: 2rem 0 0;
+  }
+
+  .list_item {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .item {
+    font-size: 1.3rem;
+    height: 5rem;
+  }
+
+  .content_collegeCareer {
+    align-items: center;
+    display: grid;
+    font-size: 1.3rem;
+    grid-template-columns: 1fr 1fr;
+    margin: 2rem 0 0;
+  }
+}

@@ -1,0 +1,24 @@
+.container {
+  align-items: center;
+  background: #0099ff;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  width: 100%;
+}
+
+.spinner {
+  animation: spinner-d3wgkg 1s infinite linear;
+  border-color: #dbdcef;
+  border-radius: 50%;
+  border: 9px solid #0099ff;
+  border-right-color: #fff;
+  height: 56px;
+  width: 56px;
+}
+
+@keyframes spinner-d3wgkg {
+  to {
+    transform: rotate(1turn);
+  }
+}

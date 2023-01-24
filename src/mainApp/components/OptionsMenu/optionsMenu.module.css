@@ -1,0 +1,120 @@
+.show {
+  opacity: 1;
+  visibility: visible;
+  transition: 1s ease-in-out;
+}
+
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+  transition: 1s ease-in-out;
+}
+
+.container {
+  color: #fff;
+  border-radius: 1rem;
+  box-shadow: 1px 1px 6px grey;
+  display: grid;
+  gap: 1rem;
+  padding: 1rem;
+  position: absolute;
+  right: 1rem;
+  top: 4rem;
+  width: 20.5rem;
+  z-index: 999;
+}
+
+.image_user {
+  align-items: center;
+  cursor: pointer;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 0fr 1fr;
+}
+
+.image_user > img {
+  border-radius: 50%;
+  height: 3rem;
+  object-fit: cover;
+  width: 3rem;
+}
+
+.image_user > figcaption {
+  font-size: 1.2rem;
+}
+
+.list_options > a,
+.button_logout {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  font-size: 1.3rem;
+  gap: 2rem;
+  padding: 1rem 0px;
+  width: 100%;
+}
+
+.list_options > a > svg,
+.button_logout > svg {
+  font-size: 2rem;
+}
+
+.button_logout {
+  color: #ff0000;
+  font-size: 1.2rem;
+}
+
+@media (min-width: 1000px) {
+  .container {
+    align-items: center;
+    display: grid;
+    grid-template-columns: 0.2fr 1fr;
+    opacity: 1;
+    padding: 0.5rem 1rem;
+    position: relative;
+    right: 0;
+    top: 0;
+    visibility: visible;
+    width: 100%;
+  }
+
+  .image_user > img {
+    height: 2.5rem;
+    width: 2.5rem;
+  }
+
+  .image_user > figcaption {
+    font-size: 1rem;
+  }
+
+  .list_options {
+    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .list_options > a,
+  .button_logout {
+    font-size: 1rem;
+    gap: 1rem;
+    transition: 1s ease-in-out;
+  }
+
+  .list_options > a > svg {
+    font-size: 1.2rem;
+  }
+
+  .button_logout {
+    font-size: 1.1rem;
+  }
+
+  .button_logout > svg {
+    font-size: 1.8rem;
+  }
+
+  .list_options > a:hover,
+  .button_logout:hover {
+    transform: scale(1.1);
+    transition: 1s ease-in-out;
+  }
+}

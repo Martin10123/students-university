@@ -1,0 +1,93 @@
+.title_welcome {
+  color: #fff;
+  font-size: 2rem;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+.title_info {
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  line-height: 1.4;
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.buttons {
+  align-items: center;
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: 1fr 1fr;
+}
+
+.buttons > button {
+  background: #0099ff;
+  border-radius: 0.5rem;
+  border: none;
+  box-shadow: 1px 1px 6px #00000066;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+  height: 3rem;
+}
+
+.imagen_college_university {
+  display: none;
+}
+
+@media (min-width: 400px) {
+  .title_welcome {
+    color: #000;
+  }
+}
+
+@media (min-width: 900px) {
+  .content_info_image {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    margin: 4rem 0;
+    width: 100%;
+  }
+
+  .content_info_about_app {
+    width: 100%;
+  }
+
+  .buttons > button {
+    background: transparent;
+    border: 1px solid #0099ff;
+    box-shadow: none;
+    color: #0099ff;
+    transition: 0.4s ease-in-out;
+  }
+
+  .buttons > button:hover {
+    background: #0099ff;
+    color: #fff;
+    transition: 0.4s ease-in-out;
+  }
+
+  .imagen_college_university {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+
+  .imagen_college_university img {
+    height: fit-content;
+    object-fit: cover;
+    width: 100%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .content_info_about_app {
+    width: 30rem;
+  }
+
+  .imagen_college_university img {
+    width: 31rem;
+  }
+}

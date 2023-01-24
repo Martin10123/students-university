@@ -1,0 +1,103 @@
+.container::before {
+  background: #0099ff;
+  content: "";
+  height: 45.5vh;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: -1;
+}
+
+.content {
+  padding: 1rem;
+  width: 100%;
+}
+
+.title_about {
+  color: #fff;
+  font-size: 3rem;
+  margin: 0 0 1rem;
+  text-align: center;
+}
+
+.paragrah_explain {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.herramient_used {
+  margin: 2rem 0 0;
+}
+
+.content_list {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin: 3rem 0 2rem;
+  width: 100%;
+}
+
+.list_item {
+  background: #fff;
+  border-radius: 0.5rem;
+  border: 2px solid #80808052;
+  box-shadow: 1px 1px 11px #80808078;
+  color: #000;
+  cursor: pointer;
+  display: grid;
+  gap: 0.5rem;
+  height: 100%;
+  justify-items: center;
+  padding: 1rem;
+  position: relative;
+  transition: 0.5s ease-in;
+  width: 20.6rem;
+}
+
+.list_item:hover {
+  transform: scale(1.08);
+  transition: 0.5s ease-in;
+}
+
+.active_item {
+  height: fit-content;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  position: fixed;
+}
+
+.logo_app_used {
+  height: 7rem;
+  width: 7rem;
+}
+
+.name_app_list {
+  font-size: 1.5rem;
+}
+
+.info_app_list {
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+@media (min-width: 1000px) {
+  .title_about {
+    font-size: 4rem;
+  }
+
+  .paragrah_explain {
+    font-size: 1.3rem;
+    margin: 0 auto;
+    width: 58rem;
+  }
+
+  .herramient_used {
+    text-align: center;
+    font-size: 2rem;
+  }
+}

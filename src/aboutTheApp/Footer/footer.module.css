@@ -1,0 +1,53 @@
+.container {
+  background: #0099ff;
+  color: #ffff;
+  padding: 1rem;
+  width: 100%;
+}
+
+.title {
+  font-size: 1.3rem;
+  margin: 0 0 2rem;
+  text-align: center;
+}
+
+.my_info {
+  display: grid;
+  gap: 1rem;
+}
+
+.my_info > p {
+  align-items: center;
+  display: flex;
+  font-size: 1.3rem;
+  gap: 1rem;
+}
+
+.social_network {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+  padding: 2rem 0 1rem;
+}
+
+.social_network > a img,
+.social_network > div img {
+  cursor: pointer;
+  height: 3rem;
+  width: 3rem;
+}
+
+@media (min-width: 1000px) {
+  .container {
+    align-items: center;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-items: center;
+    padding: 2rem 0;
+  }
+
+  .social_network {
+    gap: 1rem;
+  }
+}

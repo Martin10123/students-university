@@ -1,0 +1,95 @@
+.container_profile {
+  align-items: center;
+  background: #00000087;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.content_profile {
+  background: #fff;
+  border-radius: 1rem;
+  max-height: 85%;
+  overflow: auto;
+  padding: 1rem;
+  width: 95%;
+}
+
+.form {
+  display: grid;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.form_input,
+.form_select,
+.filter_options,
+.button_edit {
+  background: transparent;
+  border-radius: 1rem;
+  border: none;
+  box-shadow: 1px 1px 6px #808080aa;
+  font-size: 1.1rem;
+  height: 4rem;
+  outline: none;
+  padding: 1rem;
+  width: 100%;
+}
+
+.filter_options {
+  align-items: center;
+  display: flex;
+}
+
+.box_content_subject {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+.box_content_subject > p {
+  background: #0099ff;
+  border-radius: 0.5rem;
+  box-shadow: 1px 1px 6px grey;
+  color: #fff;
+  padding: 0.3rem 0.5rem;
+  width: fit-content;
+}
+
+.buttons_edit_profile {
+  align-items: center;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr 1fr;
+}
+
+.button_edit {
+  align-items: center;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  height: 3rem;
+  justify-content: center;
+}
+
+.button_edit:nth-child(1) {
+  background: #0099ff;
+}
+
+.button_edit:nth-child(2) {
+  background: #ff0000;
+}
+
+@media (min-width: 800px) {
+  .content_profile {
+    height: auto;
+    max-height: 40rem;
+    width: 30rem;
+  }
+}

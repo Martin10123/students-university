@@ -1,0 +1,173 @@
+.container::before {
+  background: #0099ff;
+  clip-path: circle(52rem at 51.6rem 3.1rem);
+  content: "";
+  height: 100vh;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: -1;
+}
+
+.content {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
+}
+
+.nav {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  width: 100%;
+}
+
+.nav > img {
+  cursor: pointer;
+  height: 2.5rem;
+  object-fit: cover;
+  width: 2.5rem;
+}
+
+.image_user {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  margin: 1rem 0;
+  position: relative;
+  width: fit-content;
+}
+
+.image_user > img {
+  height: 10rem;
+  object-fit: contain;
+  width: 10rem;
+}
+
+.image_user > svg {
+  bottom: -0.3rem;
+  cursor: pointer;
+  font-size: 1.8rem;
+  position: absolute;
+  right: 1rem;
+}
+
+.name_votes_porcent > p {
+  font-size: 1.5rem;
+}
+
+.content_porcent {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr 1fr;
+  margin: 1rem 0.5rem;
+}
+
+.item {
+  align-items: center;
+  border-radius: 0.5rem;
+  box-shadow: 1px 1px 6px grey;
+  display: flex;
+  font-size: 1.2rem;
+  gap: 2rem;
+  padding: 0.8rem 0.5rem;
+}
+
+.item:nth-child(1) {
+  color: #00ff00;
+}
+
+.item:nth-child(2) {
+  color: #ff0000;
+}
+
+.content_info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+  width: 100%;
+}
+
+.button_logout {
+  align-items: center;
+  background: transparent;
+  border: none;
+  color: red;
+  cursor: pointer;
+  display: flex;
+  font-size: 1.3rem;
+  gap: 1rem;
+  height: 3.5rem;
+  justify-content: center;
+}
+
+/* Not Found */
+
+.not_found {
+  align-items: center;
+  background: #0099ff;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 100vh;
+  justify-content: center;
+  width: 100%;
+}
+
+.not_found > h1 {
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+.not_found > a {
+  align-items: center;
+  background: transparent;
+  border-radius: 0.5rem;
+  border: none;
+  box-shadow: 1px 1px 6px grey;
+  color: #000;
+  cursor: pointer;
+  display: flex;
+  font-size: 1.3rem;
+  gap: 1rem;
+  height: 3.5rem;
+  justify-content: center;
+  width: 20rem;
+}
+
+@media (min-width: 800px) {
+  .image_user > img {
+    border-radius: 1rem;
+    height: 16rem;
+    width: 16rem;
+  }
+
+  .image_user > figcaption {
+    color: #fff;
+    font-size: 2rem;
+  }
+
+  .button_logout {
+    font-size: 1.3rem;
+  }
+}
+
+@media (min-width: 1000px) {
+  .container::before {
+    clip-path: none;
+    height: 65vh;
+  }
+
+  .content_info {
+    width: 58rem;
+  }
+}

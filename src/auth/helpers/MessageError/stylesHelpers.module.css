@@ -1,0 +1,8 @@
+.errorMessage {
+  align-items: center;
+  color: #ff0000;
+  display: flex;
+  font-size: 0.9rem;
+  gap: 1rem;
+  width: 100%;
+}

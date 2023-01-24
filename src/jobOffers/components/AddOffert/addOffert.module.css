@@ -1,0 +1,127 @@
+.container {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #000000a1;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  background: #fff;
+  border-radius: 1rem;
+  max-height: 85%;
+  overflow: auto;
+  padding: 1rem;
+  width: 94%;
+}
+
+.content > h2 {
+  font-size: 2rem;
+  margin: 0 0 1rem;
+  text-align: center;
+}
+
+.form {
+  align-items: center;
+  display: grid;
+  gap: 0.7rem;
+  width: 100%;
+}
+
+.content_form_input {
+  align-items: center;
+  background: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 1px 1px 6px #808080aa;
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: 0fr 1fr;
+  height: 4rem;
+  padding: 0.5rem;
+  width: 100%;
+}
+
+.content_form_input > svg {
+  font-size: 1.3rem;
+}
+
+.input_form {
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  height: 100%;
+  outline: none;
+  padding: 0.5rem;
+  width: 100%;
+}
+
+.textarea_form {
+  background: #ffffff;
+  border-radius: 1rem;
+  border: none;
+  box-shadow: 1px 1px 6px #808080aa;
+  font-size: 1rem;
+  height: 15rem;
+  padding: 1rem;
+  resize: none;
+  width: 100%;
+}
+
+.content_requirement_selected {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.content_requirement_selected > p {
+  border-radius: 1rem;
+  box-shadow: 1px 1px 6px grey;
+  cursor: pointer;
+  font-size: 1.1rem;
+  padding: 0.5rem 1rem;
+  width: fit-content;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin: 2rem 0 0;
+}
+
+.button_send {
+  align-items: center;
+  background: #fff;
+  border-radius: 0.5rem;
+  border: none;
+  box-shadow: 1px 1px 6px grey;
+  cursor: pointer;
+  display: flex;
+  font-size: 1.3rem;
+  gap: 1rem;
+  height: 3.5rem;
+  justify-content: center;
+  margin: 0 0 1rem 0;
+  width: 100%;
+}
+
+.button_send:nth-child(2) {
+  background: #ff0000;
+  color: #fff;
+}
+
+@media (min-width: 1000px) {
+  .content {
+    width: 35rem;
+  }
+
+  .input_form,
+  .textarea_form {
+    font-size: 1.1rem;
+  }
+}
