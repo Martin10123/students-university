@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthUserContext } from "../../context";
 import { useForm } from "../../hook";
 
 export const useSearchUsers = () => {
   const [filterByCategory, setfilterByCategory] = useState([]);
+  const { users, userAcive } = useContext(AuthUserContext);
   const [openFilter, setOpenFilter] = useState(false);
   const { search, onInputChange } = useForm({
     search: "",
@@ -20,6 +22,16 @@ export const useSearchUsers = () => {
     }
   };
 
+  const getUserByName = () => {
+    if (search.length === 0) return users;
+
+    return users.filter((user) =>
+      user.displayName
+        .toLocaleLowerCase()
+        .includes(search.toLocaleLowerCase().trim())
+    );
+  };
+
   return {
     filterByCategory,
     onInputChange,
@@ -27,5 +39,7 @@ export const useSearchUsers = () => {
     openFilter,
     search,
     setOpenFilter,
+    usersFilter: getUserByName(),
+    userAcive,
   };
 };

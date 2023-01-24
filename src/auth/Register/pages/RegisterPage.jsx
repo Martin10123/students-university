@@ -12,6 +12,7 @@ import styles from "../register.module.css";
 
 export const RegisterPage = () => {
   const {
+    errorMessage,
     formState,
     formSubmitted,
     formValidation,
@@ -19,6 +20,7 @@ export const RegisterPage = () => {
     onSelectSubjects,
     onSubmitForm,
     selectSubject,
+    startLoading,
   } = useRegister();
 
   return (
@@ -52,11 +54,15 @@ export const RegisterPage = () => {
             selectSubject={selectSubject}
           />
 
-          <button className={styles.button} onClick={onSubmitForm}>
-            Registrarse
+          <button
+            disabled={startLoading}
+            className={styles.button}
+            onClick={onSubmitForm}
+          >
+            {startLoading ? "Cargando..." : "Registrarse"}
           </button>
 
-          {false && <p className={styles.show_error}>{"errorMessage"}</p>}
+          {errorMessage && <p className={styles.show_error}>{errorMessage}</p>}
         </div>
       </div>
     </div>

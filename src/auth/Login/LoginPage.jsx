@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 import { AiOutlineMail } from "react-icons/ai";
 import { BsArrowLeft } from "react-icons/bs";
@@ -6,6 +7,7 @@ import { CiLogin } from "react-icons/ci";
 import { Link } from "react-router-dom";
 import { RiLockPasswordLine } from "react-icons/ri";
 
+import { firebaseAuth } from "../../firebase";
 import { MessageError, ValidatorFormLogin } from "../helpers";
 import { useForm } from "../../hook";
 
@@ -18,6 +20,8 @@ const formLogin = {
 
 export const LoginPage = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [startLoadingLogin, setStartLoadingLogin] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(false);
 
   const {
     email,
@@ -28,10 +32,29 @@ export const LoginPage = () => {
     passwordValid,
   } = useForm(formLogin, ValidatorFormLogin);
 
-  const onSubmitForm = () => {
+  const onSubmitForm = async (e) => {
+    e.preventDefault();
+
     if (!isFormValid) return setFormSubmitted(true);
 
-    console.log({ email, password });
+    setStartLoadingLogin(true);
+
+    try {
+      await signInWithEmailAndPassword(firebaseAuth, email, password);
+
+      setStartLoadingLogin(false);
+    } catch (error) {
+      console.log(error);
+      if (error.code === "auth/user-not-found") {
+        setErrorMessage("Este usuario no existe");
+      } else if (error.code === "auth/wrong-password") {
+        setErrorMessage("Contraseña incorrecta");
+      } else {
+        console.log(error.code);
+      }
+
+      setStartLoadingLogin(false);
+    }
   };
 
   return (
@@ -44,7 +67,7 @@ export const LoginPage = () => {
           <h2>Login App</h2>
         </div>
 
-        <form className={styles.form}>
+        <form onSubmit={onSubmitForm} className={styles.form}>
           <div className={styles.form_box_input}>
             <AiOutlineMail />
             <input
@@ -83,12 +106,16 @@ export const LoginPage = () => {
         </Link>
 
         <div className={styles.buttons}>
-          <button className={styles.button} onClick={onSubmitForm}>
+          <button
+            className={styles.button}
+            disabled={startLoadingLogin}
+            onClick={onSubmitForm}
+          >
             <CiLogin />
-            Ingresar
+            {startLoadingLogin ? "Cargando..." : "Ingresar"}
           </button>
 
-          {false && <p className={styles.show_error}>{"errorMessage"}</p>}
+          {errorMessage && <p className={styles.show_error}>{errorMessage}</p>}
 
           <p className={styles.register_or_login}>or</p>
 

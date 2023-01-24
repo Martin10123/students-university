@@ -2,7 +2,7 @@ import { sendPasswordResetEmail } from "firebase/auth";
 import { useState } from "react";
 import { BsArrowLeft } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import { FirebaseAuth } from "../../firebase";
+import { firebaseAuth } from "../../firebase";
 import { useForm } from "../../hook";
 import { MessageError, ValidatorFormRecover } from "../helpers";
 
@@ -28,7 +28,7 @@ export const RecoverAccount = () => {
     setIsLoadingForm(true);
 
     try {
-      await sendPasswordResetEmail(FirebaseAuth, email);
+      await sendPasswordResetEmail(firebaseAuth, email);
     } catch (error) {
       if (error.code === "auth/user-not-found") {
         setErrorMessage("No pudimos encontrar este usuario");

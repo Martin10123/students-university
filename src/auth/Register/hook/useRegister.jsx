@@ -1,7 +1,7 @@
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { addDoc, collection } from "firebase/firestore";
 import { useState } from "react";
-import { FirebaseAuth, FirebaseDB } from "../../../firebase";
+import { firebaseAuth, firebaseDB } from "../../../firebase";
 import { createAccountDate, generateUsernameUnic } from "../../../helpers";
 import { useForm } from "../../../hook";
 import { ValidatorFormRegister } from "../../helpers";
@@ -25,6 +25,7 @@ export const useRegister = () => {
   const [selectSubject, setSelectSubject] = useState([]);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [startLoading, setStartLoading] = useState(false);
 
   // ValidatorFormRegister es un array con las validaciones de cada campo de los inputs
   // que luego desestructuraremos para mostrar los mensajes de error por si un campo no se
@@ -58,6 +59,8 @@ export const useRegister = () => {
     if (!isFormValid || selectSubject.length === 0)
       return setFormSubmitted(true);
 
+    setStartLoading(true);
+
     const formDataUnion = {
       ...formState,
       subjectSelectGood: selectSubject,
@@ -72,25 +75,29 @@ export const useRegister = () => {
       const { email, password1, displayName } = formDataUnion;
 
       // desestructuramos de formDataUnion el email, password y el name, para enviarlos como parametro
-      // a la
+      // a la funcion que nos ofrece firebase para crear el usuario y actualizar su nombre
 
       const { user } = await createUserWithEmailAndPassword(
-        FirebaseAuth,
+        firebaseAuth,
         email,
         password1
       );
 
-      await updateProfile(FirebaseAuth.currentUser, {
-        displayName,
+      await updateProfile(firebaseAuth.currentUser, {
+        displayName: displayName,
       });
 
+      // generateUsernameUnic función que genera un nombre de usuario aleatorio
+      // utilizando su nombre y varios funciones pa generar numeros randoms
       const username = generateUsernameUnic(displayName);
+
+      // createAccountDate función que genera la fecha de cuando creo su cuenta
       const createAccount = createAccountDate(new Date().getTime());
 
       delete formDataUnion.password1;
       delete formDataUnion.password2;
 
-      await addDoc(collection(FirebaseDB, "users"), {
+      await addDoc(collection(firebaseDB, "users"), {
         ...formDataUnion,
         uid: user.uid,
         createAccount,
@@ -99,6 +106,8 @@ export const useRegister = () => {
         votesBad: [],
         votesGood: [],
       });
+
+      setStartLoading(false);
     } catch (error) {
       console.log(error);
       if (error.code === "auth/email-already-in-use") {
@@ -106,6 +115,7 @@ export const useRegister = () => {
       } else {
         setErrorMessage(error.code);
       }
+      setStartLoading(false);
     }
   };
 
@@ -118,5 +128,6 @@ export const useRegister = () => {
     onSelectSubjects,
     onSubmitForm,
     selectSubject,
+    startLoading,
   };
 };

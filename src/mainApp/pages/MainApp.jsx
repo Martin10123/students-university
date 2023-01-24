@@ -15,6 +15,8 @@ export const MainApp = () => {
     openFilter,
     search,
     setOpenFilter,
+    usersFilter,
+    userAcive,
   } = useSearchUsers();
 
   useScroll([openFilter]);
@@ -64,9 +66,15 @@ export const MainApp = () => {
           <h2 className={styles.title_result}>Resultados</h2>
           <hr />
 
-          {true ? (
+          {usersFilter.length !== 0 ? (
             <div className={styles.container_cards}>
-              <CardStudents />
+              {usersFilter.map(
+                (user) =>
+                  user.uid !== userAcive?.uid &&
+                  user.selectFormUser === "Brindar" && (
+                    <CardStudents key={user.idDoc} {...user} />
+                  )
+              )}
             </div>
           ) : (
             <div className={styles.no_result_users}>

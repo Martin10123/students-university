@@ -1,7 +1,10 @@
+import { useContext } from "react";
 import { CiLogout } from "react-icons/ci";
 
 import { Link, useNavigate } from "react-router-dom";
 import { photoUser } from "../../../assets";
+import { AuthUserContext } from "../../../context";
+import { startLogout } from "../../../firebase";
 import { dataNavbar, shortName } from "../../../helpers";
 
 import styles from "./optionsMenu.module.css";
@@ -12,11 +15,12 @@ export const OptionsMenu = ({
   colorLetter,
 }) => {
   const navigate = useNavigate();
+  const { userActive, userActiveComplete } = useContext(AuthUserContext);
 
   const showOptionStyles = openMenu ? styles.show : styles.hidden;
 
-  const onLogout = () => {
-    console.log("Logout");
+  const onLogout = async () => {
+    await startLogout(userActiveComplete?.idDoc);
   };
 
   const onGoToProfile = () => {
@@ -30,7 +34,7 @@ export const OptionsMenu = ({
     >
       <figure className={styles.image_user} onClick={onGoToProfile}>
         <img src={photoUser} alt="Foto del usuario" />
-        <figcaption>{shortName("displayName a a")}</figcaption>
+        <figcaption>{shortName(userActive?.displayName)}</figcaption>
       </figure>
       <div className={styles.list_options}>
         {dataNavbar.map(({ name, Icon, linkTo }) => (
