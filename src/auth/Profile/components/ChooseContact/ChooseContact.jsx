@@ -7,7 +7,7 @@ import { SentChatModal } from "../SentChatModal/SentChatModal";
 
 import styles from "./chooseContact.module.css";
 
-export const ChooseContact = () => {
+export const ChooseContact = ({ setOpenContact, phoneNumber }) => {
   const [openSendMessage, setOpenSendMessage] = useState(false);
 
   return (
@@ -18,7 +18,7 @@ export const ChooseContact = () => {
         <hr />
         <a
           className={styles.form_contact_whatsapp}
-          href={`https://api.whatsapp.com/send?phone=${"3006830624"}&text=Hola%20mucho%20gusto`}
+          href={`https://api.whatsapp.com/send?phone=${phoneNumber}&text=Hola%20mucho%20gusto`}
           target="_blank"
         >
           <BsWhatsapp />

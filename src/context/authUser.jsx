@@ -8,7 +8,7 @@ export const AuthUserContext = createContext();
 
 export const AuthUserProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
-  const [userActive, setUserActive] = useState(null);
+  const [userActive, setUserActive] = useState({});
   const [startLoading, setStartLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -17,7 +17,7 @@ export const AuthUserProvider = ({ children }) => {
       if (user) {
         const { displayName, email, uid } = user;
 
-        setUserActive({ displayName, email, uid });
+        setUserActive({ email, uid, displayName });
 
         setIsLoggedIn(true);
         setStartLoading(false);
@@ -47,17 +47,15 @@ export const AuthUserProvider = ({ children }) => {
     return users?.find((user) => user.username === username);
   };
 
-  const userActiveComplete = users?.find(
-    (user) => user.uid === userActive?.uid
-  );
+  const infoUserActive = users?.find((user) => user.uid === userActive?.uid);
 
   const providerState = {
-    users,
     isLoggedIn,
     searchUserByUsername,
     startLoading,
     userActive,
-    userActiveComplete,
+    infoUserActive,
+    users,
   };
 
   return (

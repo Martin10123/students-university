@@ -1,10 +1,16 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { BsCamera } from "react-icons/bs";
+import { AuthUserContext } from "../../../../context";
+import { loadImageProfileUser } from "../../../../helpers";
 
 import styles from "./loadImage.module.css";
 
 export const LoadImage = ({ setOpenAddImageProfile }) => {
-  const [startLoadingPhoto, setStartLoadingPhoto] = useState(0);
+  const [startLoadingPhoto, setStartLoadingPhoto] = useState(false);
+  const { infoUserActive } = useContext(AuthUserContext);
+
+  const { displayName, uid, idDoc } = infoUserActive;
+
   const fileInputRef = useRef();
 
   const onChangePhoto = ({ target }) => {
@@ -12,11 +18,21 @@ export const LoadImage = ({ setOpenAddImageProfile }) => {
 
     setStartLoadingPhoto(true);
 
-    const file = target.files[0];
+    try {
+      const file = target.files[0];
 
-    console.log(file);
-
-    setStartLoadingPhoto(false);
+      loadImageProfileUser({
+        displayName,
+        file,
+        idDoc,
+        setOpenAddImageProfile,
+        setStartLoadingPhoto,
+        uid,
+      });
+    } catch (error) {
+      console.log(error);
+      setStartLoadingPhoto(false);
+    }
   };
 
   return (
@@ -25,6 +41,7 @@ export const LoadImage = ({ setOpenAddImageProfile }) => {
         <span className={styles.load_image_span}>
           <h2 className={styles.load_image_title}>Seleccionar imagen</h2>
           <button
+            disabled={startLoadingPhoto}
             className={styles.load_image_button_close}
             onClick={() => setOpenAddImageProfile(false)}
           >
@@ -32,8 +49,13 @@ export const LoadImage = ({ setOpenAddImageProfile }) => {
           </button>
         </span>
 
-        {startLoadingPhoto !== 0 && (
-          <p className={styles.loading_photo}>{`${startLoadingPhoto}%`}</p>
+        {startLoadingPhoto && (
+          <div className={styles.content_spinner}>
+            <div className={styles.spinner}></div>
+            <p className={styles.loading_photo}>
+              {`${displayName} estamos cargando su foto de perfil, por favor espere...`}
+            </p>
+          </div>
         )}
 
         <input
@@ -44,6 +66,7 @@ export const LoadImage = ({ setOpenAddImageProfile }) => {
         />
 
         <button
+          disabled={startLoadingPhoto}
           className={styles.load_image_button}
           onClick={() => fileInputRef.current.click()}
         >

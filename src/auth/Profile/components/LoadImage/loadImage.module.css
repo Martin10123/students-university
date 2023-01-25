@@ -34,20 +34,6 @@
   font-weight: 500;
 }
 
-.loading_photo {
-  align-items: center;
-  background: #0099ff;
-  border-radius: 50%;
-  color: #fff;
-  display: flex;
-  font-size: 1.5rem;
-  height: 7rem;
-  justify-content: center;
-  margin: 0 auto;
-  text-align: center;
-  width: 7rem;
-}
-
 .load_image_button_close {
   align-items: center;
   background: #80808070;
@@ -76,6 +62,41 @@
   height: 3.5rem;
   justify-content: center;
   width: 100%;
+}
+
+/* Spiner manual */
+
+.content_spinner {
+  align-items: center;
+  display: grid;
+  gap: 1rem;
+  justify-items: center;
+  padding: 3rem;
+  width: 100%;
+}
+
+.loading_photo {
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.spinner {
+  border: 13px solid #0099ff;
+  border-left-color: transparent;
+  border-radius: 50%;
+  height: 7rem;
+  width: 7rem;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @media (min-width: 1000px) {

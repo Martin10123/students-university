@@ -1,19 +1,30 @@
+import { updateProfile } from "firebase/auth";
+import { doc, updateDoc } from "firebase/firestore";
 import { useState } from "react";
+import { firebaseAuth, firebaseDB } from "../../../../firebase";
 import { allSubject } from "../../../../helpers";
-import { useForm, useScroll } from "../../../../hook";
+import { useForm } from "../../../../hook";
 import { FilterOptions } from "../../../../mainApp";
 import { MessageError, validatorFormEditProfile } from "../../../helpers";
 import { useRegister } from "../../../Register/hook/useRegister";
 
 import styles from "./editProfile.module.css";
 
-export const EditProfile = () => {
+export const EditProfile = ({ setOpenEditProfile, userSelected }) => {
+  const {
+    subject,
+    displayName,
+    phoneNumber,
+    selectFormUser,
+    semester,
+    subjectSelectGood,
+    idDoc,
+  } = userSelected;
+
   const { selectSubject, onSelectSubjects } = useRegister();
   const [openFilter, setOpenFilter] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isLoadingButton, setIsLoadingButton] = useState(false);
-
-  useScroll([openFilter]);
 
   const {
     newSubject,
@@ -26,11 +37,11 @@ export const EditProfile = () => {
     newSemester,
   } = useForm(
     {
-      newSubject: "",
-      newDisplayName: "",
-      newPhoneNumber: "",
-      newSelectFormUser: "Brindar",
-      newSemester: "",
+      newSubject: subject,
+      newDisplayName: displayName,
+      newPhoneNumber: phoneNumber,
+      newSelectFormUser: selectFormUser,
+      newSemester: semester,
     },
     validatorFormEditProfile
   );
@@ -47,15 +58,34 @@ export const EditProfile = () => {
 
     setIsLoadingButton(true);
 
-    console.log({
-      newSubject,
-      newDisplayName,
-      newPhoneNumber,
-      newSelectFormUser,
-      newSemester,
-    });
+    const formEditUser = {
+      displayName: newDisplayName,
+      phoneNumber: newPhoneNumber,
+      selectFormUser: newSelectFormUser || selectFormUser,
+      subjectSelectGood:
+        selectSubject.length === 0 ? subjectSelectGood : selectSubject,
+      semester: newSemester,
+      subject: newSubject,
+      idDoc,
+    };
 
-    setIsLoadingButton(false);
+    try {
+      const docRef = doc(firebaseDB, "users", idDoc);
+
+      await updateDoc(docRef, {
+        ...formEditUser,
+      });
+
+      await updateProfile(firebaseAuth.currentUser, {
+        displayName: newDisplayName,
+      });
+
+      setIsLoadingButton(false);
+      setOpenEditProfile(false);
+    } catch (error) {
+      console.log(error);
+      setIsLoadingButton(false);
+    }
   };
 
   return (

@@ -4,49 +4,62 @@ import { BsPhone, BsCalendarDate } from "react-icons/bs";
 import { MdAlternateEmail, MdOutlineCollectionsBookmark } from "react-icons/md";
 import { RiCake2Line } from "react-icons/ri";
 import { SlNotebook } from "react-icons/sl";
+import { dateIsValid } from "../../../helpers";
 
 import styles from "./listItem.module.css";
 
-export const ListItem = () => {
+export const ListItem = ({
+  birthday,
+  createAccount,
+  email,
+  gender,
+  phoneNumber,
+  semester,
+  subject,
+  subjectSelectGood,
+  username,
+}) => {
+  const userYearsOld = dateIsValid(birthday);
+
   return (
     <div className={styles.content_all_info_list}>
       <ul className={styles.list_item}>
         <li className={styles.item}>
           <BiLabel />
-          {"username"}
+          {username}
         </li>
         <li className={styles.item}>
           <MdAlternateEmail />
-          {"email"}
+          {email}
         </li>
         <li className={styles.item}>
           <BsPhone />
-          {"phoneNumber"}
+          {phoneNumber}
         </li>
         <li className={styles.item}>
           <RiCake2Line />
-          {"birthday"} - ({"21"} años)
+          {birthday} - ({userYearsOld} años)
         </li>
         <li className={styles.item}>
           <BiUserCircle />
-          {"gender"}
+          {gender}
         </li>
         <li className={styles.item}>
           <BsCalendarDate />
-          Se unio {"createAccount"}
+          Se unio {createAccount}
         </li>
         <li className={styles.item}>
           <SlNotebook />
-          {"subject"}
+          {subject}
         </li>
         <li className={styles.item}>
           <AiOutlineFieldNumber />
-          {"2"} semestre
+          {semester} semestre
         </li>
       </ul>
 
       <div className={styles.content_collegeCareer}>
-        {[1, 2, 3].map((subjectSelect) => (
+        {subjectSelectGood.map((subjectSelect) => (
           <p key={subjectSelect}>
             <MdOutlineCollectionsBookmark /> {subjectSelect}
           </p>

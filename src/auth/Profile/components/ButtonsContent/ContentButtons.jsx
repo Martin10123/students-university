@@ -5,11 +5,19 @@ import { SlLike, SlDislike } from "react-icons/sl";
 import { TfiCommentAlt } from "react-icons/tfi";
 import { useNavigate } from "react-router-dom";
 import { ChooseContact, EditProfile } from "../";
+import { logicVotes } from "../../../../helpers";
 import { useScroll } from "../../../../hook";
 
 import styles from "./buttons.module.css";
 
-export const ContentButtons = () => {
+export const ContentButtons = ({
+  userSelected,
+  isUserActive,
+  uidUserActive,
+}) => {
+  const { username, displayName, votesGood, votesBad, phoneNumber, idDoc } =
+    userSelected;
+
   const [openContact, setOpenContact] = useState(false);
   const [openEditProfile, setOpenEditProfile] = useState(false);
   const navigate = useNavigate();
@@ -17,52 +25,74 @@ export const ContentButtons = () => {
   useScroll([openEditProfile, openContact]);
 
   const onGoToCommentUser = () => {
-    navigate(`/opinions/a/a`);
+    navigate(`/opinions/${username}/${displayName}`);
   };
 
-  const likeToUser = (type) => {
-    console.log({ type });
+  const likeToUser = async (type) => {
+    await logicVotes(userSelected, type, uidUserActive, idDoc);
   };
+
+  const votesGoodSelected = votesGood.includes(uidUserActive)
+    ? { background: "#00ff00", color: "#fff" }
+    : {};
+
+  const votesBadSelected = votesBad.includes(uidUserActive)
+    ? { background: "#ff0000", color: "#fff" }
+    : {};
 
   return (
     <>
-      <div className={styles.box_buttons_vote}>
-        <button
-          className={styles.button_vote}
-          onClick={() => likeToUser("votesGood")}
-        >
-          <SlLike /> 0
-        </button>
-        <button
-          className={styles.button_vote}
-          onClick={() => likeToUser("votesBad")}
-        >
-          <SlDislike /> 0
-        </button>
-        <button
-          className={styles.button_vote}
-          onClick={() => setOpenContact(true)}
-        >
-          <BsChatLeft />
-          Contactar
-        </button>
-        <button className={styles.button_vote} onClick={onGoToCommentUser}>
-          <TfiCommentAlt />
-          Dar opinion
-        </button>
-      </div>
+      {!isUserActive && (
+        <div className={styles.box_buttons_vote}>
+          <button
+            className={styles.button_vote}
+            onClick={() => likeToUser("votesGood")}
+            style={votesGoodSelected}
+          >
+            <SlLike /> {votesGood.length}
+          </button>
+          <button
+            className={styles.button_vote}
+            onClick={() => likeToUser("votesBad")}
+            style={votesBadSelected}
+          >
+            <SlDislike /> {votesBad.length}
+          </button>
+          <button
+            className={styles.button_vote}
+            onClick={() => setOpenContact(true)}
+          >
+            <BsChatLeft />
+            Contactar
+          </button>
+          <button className={styles.button_vote} onClick={onGoToCommentUser}>
+            <TfiCommentAlt />
+            Dar opinion
+          </button>
+        </div>
+      )}
 
-      <button
-        className={styles.button_edit_profile}
-        onClick={() => setOpenEditProfile(true)}
-      >
-        <AiOutlineEdit />
-        Editar perfil
-      </button>
+      {isUserActive && (
+        <button
+          className={styles.button_edit_profile}
+          onClick={() => setOpenEditProfile(true)}
+        >
+          <AiOutlineEdit />
+          Editar perfil
+        </button>
+      )}
 
-      {openContact && <ChooseContact setOpenContact={setOpenContact} />}
+      {openContact && (
+        <ChooseContact
+          setOpenContact={setOpenContact}
+          phoneNumber={phoneNumber}
+        />
+      )}
       {openEditProfile && (
-        <EditProfile setOpenEditProfile={setOpenEditProfile} />
+        <EditProfile
+          setOpenEditProfile={setOpenEditProfile}
+          userSelected={userSelected}
+        />
       )}
     </>
   );

@@ -1,14 +1,15 @@
-import { doc, updateDoc } from "firebase/firestore/lite";
+import { doc, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { FirebaseDB, storage } from "../firebase";
+import { firebaseDB, storage } from "../firebase";
 
-export const loadImageProfileUser = (
+export const loadImageProfileUser = ({
   displayName,
   file,
+  idDoc,
   setStartLoadingPhoto,
+  setOpenAddImageProfile,
   uid,
-  idDoc
-) => {
+}) => {
   if (!file) throw Error("No hay imagen");
 
   const storageRef = ref(storage, `images_profile/${uid}__${displayName}`);
@@ -16,23 +17,23 @@ export const loadImageProfileUser = (
 
   uploadTask.on(
     "state_changed",
-    (snapshot) => {
-      const progress = Math.round(
-        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-      );
-
-      setStartLoadingPhoto(progress);
-    },
+    () => {},
     (error) => {
       console.log(error.code);
     },
     () => {
       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-        const docRef = doc(FirebaseDB, "users", idDoc);
+        const docRef = doc(firebaseDB, "users", idDoc);
+
         updateDoc(docRef, {
           photoUrl: downloadURL,
-        });
+        })
+          .then(() => {})
+          .catch((error) => console.log(error));
       });
+
+      setStartLoadingPhoto(false);
+      setOpenAddImageProfile(false);
     }
   );
 };

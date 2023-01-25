@@ -15,16 +15,16 @@ export const OptionsMenu = ({
   colorLetter,
 }) => {
   const navigate = useNavigate();
-  const { userActive, userActiveComplete } = useContext(AuthUserContext);
+  const { infoUserActive } = useContext(AuthUserContext);
 
   const showOptionStyles = openMenu ? styles.show : styles.hidden;
 
   const onLogout = async () => {
-    await startLogout(userActiveComplete?.idDoc);
+    await startLogout(infoUserActive?.idDoc);
   };
 
   const onGoToProfile = () => {
-    navigate(`/`);
+    navigate(`/${infoUserActive?.username}`);
   };
 
   return (
@@ -34,7 +34,7 @@ export const OptionsMenu = ({
     >
       <figure className={styles.image_user} onClick={onGoToProfile}>
         <img src={photoUser} alt="Foto del usuario" />
-        <figcaption>{shortName(userActive?.displayName)}</figcaption>
+        <figcaption>{shortName(infoUserActive?.displayName)}</figcaption>
       </figure>
       <div className={styles.list_options}>
         {dataNavbar.map(({ name, Icon, linkTo }) => (
