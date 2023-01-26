@@ -11,17 +11,21 @@ import { useForm } from "../../hook";
 
 import styles from "./chatMessage.module.css";
 
-export const ChatMessage = ({ openChatMessage, setopenChatMessage }) => {
+export const ChatMessage = ({
+  infoUserActive,
+  openChatMessage,
+  setopenChatMessage,
+}) => {
   const openChat = openChatMessage ? "" : styles.hidden_component;
 
   const { message, onInputChange, onResetForm } = useForm({ message: "" });
 
   const onSubmitMessage = (e) => {
     e.preventDefault();
-
     if (message.trim().length === 0) return;
 
-    console.log({ message });
+    try {
+    } catch (error) {}
 
     onResetForm();
   };
@@ -33,13 +37,10 @@ export const ChatMessage = ({ openChatMessage, setopenChatMessage }) => {
           <div className={styles.image_user}>
             <BsArrowLeft onClick={() => setopenChatMessage(false)} />
 
-            <img
-              src={chatSelected?.photoUrl ? chatSelected?.photoUrl : photoUser}
-              alt="Foto de perfil"
-            />
+            <img src={photoUser} alt="Foto de perfil" />
 
             <span className={styles.name_user}>
-              <p>{"chatSelected?.displayName"}</p>
+              <p>{"displayName"}</p>
               <p>Hace 3 min</p>
             </span>
           </div>
@@ -56,7 +57,20 @@ export const ChatMessage = ({ openChatMessage, setopenChatMessage }) => {
               key={num}
               className={num === 1 ? styles.message_left : styles.message_right}
             >
-              <p>{message}</p>
+              <div className={styles.message_img_hour}>
+                <img
+                  className={styles.img_user_message}
+                  src={photoUser}
+                  alt="Foto de martin"
+                />
+                <p>10:20pm</p>
+              </div>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim
+                sunt officia, recusandae excepturi dolore perspiciatis aut
+                deserunt impedit vitae amet placeat itaque tenetur quibusdam
+                deleniti illo, laboriosam inventore. Quisquam, necessitatibus?
+              </p>
             </div>
           ))}
         </div>

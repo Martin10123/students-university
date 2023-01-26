@@ -75,7 +75,7 @@ export const ProfilePage = () => {
             <ContentButtons
               isUserActive={isUserActive}
               userSelected={userSelected}
-              uidUserActive={infoUserActive?.uid}
+              infoUserActive={infoUserActive}
             />
           </div>
 

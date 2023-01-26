@@ -21,8 +21,10 @@
 
 .nav_message {
   align-items: center;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr 1fr;
+  justify-items: end;
   padding: 1rem;
   width: 100%;
 }
@@ -68,25 +70,40 @@
 
 .message_left,
 .message_right {
-  display: flex;
-  justify-content: flex-start;
-  margin: 1rem 0;
+  align-items: end;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 0fr 1fr;
+  margin: 0 0 1.5rem 0;
   width: 100%;
 }
 
 .message_right {
-  justify-content: flex-end;
+  display: flex;
+  flex-direction: row-reverse;
 }
 
-.message_left p,
-.message_right p {
+.img_user_message {
+  border-radius: 50%;
+  cursor: pointer;
+  height: 2.5rem;
+  object-fit: cover;
+  width: 2.5rem;
+}
+
+.message_img_hour > p {
+  font-size: 0.8rem;
+}
+
+.message_left > p,
+.message_right > p {
   background: #80808096;
   border-radius: 1rem;
   padding: 0.5rem;
   width: fit-content;
 }
 
-.message_right p {
+.message_right > p {
   background: #0099ff;
   color: #fff;
 }

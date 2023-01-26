@@ -1,5 +1,5 @@
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import { useState } from "react";
 import { firebaseAuth, firebaseDB } from "../../../firebase";
 import { createAccountDate, generateUsernameUnic } from "../../../helpers";
@@ -110,6 +110,8 @@ export const useRegister = () => {
         votesBad: [],
         votesGood: [],
       });
+
+      await setDoc(doc(firebaseDB, "userChats", user.uid), {});
 
       setStartLoading(false);
     } catch (error) {

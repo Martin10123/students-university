@@ -13,17 +13,11 @@ import styles from "./buttons.module.css";
 export const ContentButtons = ({
   userSelected,
   isUserActive,
-  uidUserActive,
+  infoUserActive,
 }) => {
-  const {
-    displayName,
-    idDoc,
-    phoneNumber,
-    selectFormUser,
-    username,
-    votesBad,
-    votesGood,
-  } = userSelected;
+  const { displayName, idDoc, selectFormUser, username, votesBad, votesGood } =
+    userSelected;
+  const { uid } = infoUserActive;
 
   const [openContact, setOpenContact] = useState(false);
   const [openEditProfile, setOpenEditProfile] = useState(false);
@@ -36,14 +30,14 @@ export const ContentButtons = ({
   };
 
   const likeToUser = async (type) => {
-    await logicVotes(userSelected, type, uidUserActive, `users/${idDoc}`);
+    await logicVotes(userSelected, type, uid, `users/${idDoc}`);
   };
 
-  const votesGoodSelected = votesGood.includes(uidUserActive)
+  const votesGoodSelected = votesGood.includes(uid)
     ? { background: "#00ff00", color: "#fff" }
     : {};
 
-  const votesBadSelected = votesBad.includes(uidUserActive)
+  const votesBadSelected = votesBad.includes(uid)
     ? { background: "#ff0000", color: "#fff" }
     : {};
 
@@ -92,7 +86,8 @@ export const ContentButtons = ({
       {openContact && (
         <ChooseContact
           setOpenContact={setOpenContact}
-          phoneNumber={phoneNumber}
+          userSelected={userSelected}
+          infoUserActive={infoUserActive}
         />
       )}
       {openEditProfile && (

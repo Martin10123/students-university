@@ -97,8 +97,14 @@
   border-radius: 50%;
 }
 
-.name_user p {
+.name_user p:nth-child(1) {
   font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.name_user p:nth-child(2) {
+  color: #000;
+  font-size: 0.9rem;
   font-weight: 500;
 }
 
