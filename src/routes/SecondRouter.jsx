@@ -20,7 +20,7 @@ export const SecondRouter = () => {
         <Route path="/store" element={<MainStore />} />
         <Route path="/store/selfArticle" element={<SelfArticle />} />
         <Route path="/vacations" element={<CollegeVacation />} />
-        <Route path="/opinions/:name/:username" element={<BoxComment />} />
+        <Route path="/opinions/:username/:name" element={<BoxComment />} />
 
         <Route path="/:username" element={<ProfilePage />} />
 

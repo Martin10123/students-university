@@ -56,8 +56,12 @@ export const useRegister = () => {
   // nuestro custom hook que nos valida si todos los campos de los inputs estan correctos
 
   const onSubmitForm = async () => {
-    if (!isFormValid || selectSubject.length === 0)
-      return setFormSubmitted(true);
+    const validForm =
+      formState.selectFormUser === "Brindar"
+        ? !isFormValid || selectSubject.length === 0
+        : !isFormValid;
+
+    if (validForm) return setFormSubmitted(true);
 
     setStartLoading(true);
 

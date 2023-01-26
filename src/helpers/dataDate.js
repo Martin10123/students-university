@@ -57,11 +57,22 @@ export const getTimeAgo = (timestamp, locale) => {
 
   let dateNew;
 
-  if (dateTime.split(" ")[2] === "días") {
+  if (dateTime.split(" ")[2] === "segundos") {
+    dateNew = `Justo ahora`;
+  } else if (
+    dateTime.split(" ")[2] === "días" ||
+    dateTime.split(" ")[2] === "día"
+  ) {
     dateNew = `${dateTime.split(" ")[1]}d`;
-  } else if (dateTime.split(" ")[2] === "hora") {
+  } else if (
+    dateTime.split(" ")[2] === "hora" ||
+    dateTime.split(" ")[2] === "horas"
+  ) {
     dateNew = `${dateTime.split(" ")[1]}h`;
-  } else if (dateTime.split(" ")[2] === "minutos") {
+  } else if (
+    dateTime.split(" ")[2] === "minutos" ||
+    dateTime.split(" ")[2] === "minuto"
+  ) {
     dateNew = `${dateTime.split(" ")[1]}min`;
   }
 

@@ -1,8 +1,26 @@
+import { deleteDoc, doc } from "firebase/firestore";
+import { firebaseDB } from "../../../firebase";
+
 import styles from "./styles.module.css";
 
-export const SureDelete = ({ setOpenSureDelete }) => {
-  const onDeleteComment = () => {
-    console.log("Deleting...");
+export const SureDelete = ({
+  comment,
+  setOpenSureDelete,
+  userFoundByUsername,
+}) => {
+  const onDeleteComment = async () => {
+    try {
+      const docRef = doc(
+        firebaseDB,
+        `comments/${userFoundByUsername?.uid}/journal/${comment?.idDoc}`
+      );
+
+      await deleteDoc(docRef);
+
+      setOpenSureDelete(false);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

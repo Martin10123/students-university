@@ -11,3 +11,12 @@ export const dataNavbar = [
   { name: "Tienda", linkTo: "/store", Icon: BiStore },
   { name: "Ofertas", linkTo: "/jobOffert", Icon: MdWorkOutline },
 ];
+
+export const generateIdUnic = (username) => {
+  return `${username}${
+    Date.now().toString(36) +
+    Math.floor(
+      Math.pow(10, 12) + Math.random() * 9 * Math.pow(10, 12)
+    ).toString(36)
+  }`;
+};

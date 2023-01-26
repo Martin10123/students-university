@@ -15,8 +15,15 @@ export const ContentButtons = ({
   isUserActive,
   uidUserActive,
 }) => {
-  const { username, displayName, votesGood, votesBad, phoneNumber, idDoc } =
-    userSelected;
+  const {
+    displayName,
+    idDoc,
+    phoneNumber,
+    selectFormUser,
+    username,
+    votesBad,
+    votesGood,
+  } = userSelected;
 
   const [openContact, setOpenContact] = useState(false);
   const [openEditProfile, setOpenEditProfile] = useState(false);
@@ -29,7 +36,7 @@ export const ContentButtons = ({
   };
 
   const likeToUser = async (type) => {
-    await logicVotes(userSelected, type, uidUserActive, idDoc);
+    await logicVotes(userSelected, type, uidUserActive, `users/${idDoc}`);
   };
 
   const votesGoodSelected = votesGood.includes(uidUserActive)
@@ -42,7 +49,7 @@ export const ContentButtons = ({
 
   return (
     <>
-      {!isUserActive && (
+      {!isUserActive && selectFormUser !== "Buscar" && (
         <div className={styles.box_buttons_vote}>
           <button
             className={styles.button_vote}

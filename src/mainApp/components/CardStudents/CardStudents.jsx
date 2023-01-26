@@ -13,6 +13,8 @@ export const CardStudents = ({
   subject,
   subjectSelectGood,
   username,
+  votesGood,
+  votesBad,
 }) => {
   return (
     <div className={styles.card_info}>
@@ -37,10 +39,10 @@ export const CardStudents = ({
             <p>{semester} semestre</p>
           </div>
           <div className={styles.appoi_select}>
-            <p>Votos buenos: 2</p>
+            <p>Votos buenos: {votesGood.length}</p>
           </div>
           <div className={styles.appoi_select}>
-            <p>Votos malos: 2</p>
+            <p>Votos malos: {votesBad.length}</p>
           </div>
         </div>
 

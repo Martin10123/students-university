@@ -135,4 +135,8 @@
   .form {
     gap: 0.7rem;
   }
+
+  .filter_options {
+    height: 3.5rem !important;
+  }
 }

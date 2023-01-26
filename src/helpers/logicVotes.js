@@ -1,7 +1,7 @@
 import { doc, updateDoc } from "firebase/firestore";
 import { firebaseDB } from "../firebase";
 
-export const logicVotes = async (data, typeVotes, uid, idDoc) => {
+export const logicVotes = async (data, typeVotes, uid, pathBDSave) => {
   const newValues = {
     ...data,
     [typeVotes]: [...data[typeVotes], uid],
@@ -23,7 +23,7 @@ export const logicVotes = async (data, typeVotes, uid, idDoc) => {
     newValues.votesBad = [...data.votesBad, uid];
   }
 
-  const docRef = doc(firebaseDB, "users", idDoc);
+  const docRef = doc(firebaseDB, pathBDSave);
 
   try {
     await updateDoc(docRef, {

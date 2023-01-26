@@ -58,13 +58,15 @@ export const ListItem = ({
         </li>
       </ul>
 
-      <div className={styles.content_collegeCareer}>
-        {subjectSelectGood.map((subjectSelect) => (
-          <p key={subjectSelect}>
-            <MdOutlineCollectionsBookmark /> {subjectSelect}
-          </p>
-        ))}
-      </div>
+      {subjectSelectGood.length !== 0 && (
+        <div className={styles.content_collegeCareer}>
+          {subjectSelectGood.map((subjectSelect) => (
+            <p key={subjectSelect}>
+              <MdOutlineCollectionsBookmark /> {subjectSelect}
+            </p>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

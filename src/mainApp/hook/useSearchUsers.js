@@ -4,7 +4,7 @@ import { useForm } from "../../hook";
 
 export const useSearchUsers = () => {
   const [filterByCategory, setfilterByCategory] = useState([]);
-  const { users, userAcive } = useContext(AuthUserContext);
+  const { users, infoUserActive } = useContext(AuthUserContext);
   const [openFilter, setOpenFilter] = useState(false);
   const { search, onInputChange } = useForm({
     search: "",
@@ -40,6 +40,6 @@ export const useSearchUsers = () => {
     search,
     setOpenFilter,
     usersFilter: getUserByName(),
-    userAcive,
+    infoUserActive,
   };
 };

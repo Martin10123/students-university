@@ -20,6 +20,8 @@ export const SubjectSemesterOptions = ({
 
   const { subjectValid, semesterValid } = formValidation;
 
+  const yesWantWork = selectFormUser === "Brindar" ? true : false;
+
   return (
     <>
       <input
@@ -61,15 +63,20 @@ export const SubjectSemesterOptions = ({
       </select>
 
       <div
+        style={{ height: "5rem" }}
         className={styles.filter_options}
-        onClick={() => setOpenFilter(true)}
+        onClick={() => setOpenFilter(yesWantWork)}
       >
-        <p>En que eres bueno? Elige!!</p>
+        <p>
+          {yesWantWork
+            ? "En que eres bueno? Elige!!"
+            : "Solo puedes usar esta opción si quieres brindar servicios"}
+        </p>
       </div>
 
       <MessageError
         textError="Debes elegir por lo menos un area"
-        errorActive={selectSubject.length === 0 && formSubmitted}
+        errorActive={selectSubject.length === 0 && formSubmitted && yesWantWork}
       />
 
       {openFilter && (
