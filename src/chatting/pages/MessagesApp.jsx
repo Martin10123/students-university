@@ -7,7 +7,10 @@ import styles from "../ChatsMessage/chatMessage.module.css";
 
 export const MessagesApp = () => {
   const [openChatMessage, setopenChatMessage] = useState(false);
-  const { infoUserActive } = useContext(AuthUserContext);
+  const [uidChatSelected, setUidChatSelected] = useState({});
+  const { infoUserActive, users } = useContext(AuthUserContext);
+
+  const findUserSelected = users.find((user) => user?.uid === uidChatSelected);
 
   useScroll([openChatMessage]);
 
@@ -15,15 +18,18 @@ export const MessagesApp = () => {
     <div className={styles.desk_chat_container}>
       <div className={styles.desk_chat_content}>
         <ChatsApp
-          setopenChatMessage={setopenChatMessage}
           infoUserActive={infoUserActive}
+          setUidChatSelected={setUidChatSelected}
+          setopenChatMessage={setopenChatMessage}
+          users={users}
         />
 
         {openChatMessage ? (
           <ChatMessage
+            findUserSelected={findUserSelected}
+            infoUserActive={infoUserActive}
             openChatMessage={openChatMessage}
             setopenChatMessage={setopenChatMessage}
-            infoUserActive={infoUserActive}
           />
         ) : (
           <div className={styles.show_message_not_selected}>

@@ -20,7 +20,7 @@ export const OptionsMenu = ({
   const showOptionStyles = openMenu ? styles.show : styles.hidden;
 
   const onLogout = async () => {
-    await startLogout(infoUserActive?.idDoc);
+    await startLogout(infoUserActive?.uid);
   };
 
   const onGoToProfile = () => {

@@ -1,26 +1,38 @@
 import { photoUser } from "../../assets";
-import { shortName } from "../../helpers";
+import { getTimeAgo, shortName } from "../../helpers";
 
 import styles from "./chatsApp.module.css";
 
-export const CardChatFilter = ({ chat }) => {
-  const {
-    lastMessage: { lastMessage },
-    userInfo: { photoUrl, displayName },
-  } = chat;
+export const CardChatFilter = ({
+  setUidChatSelected,
+  chat,
+  getUsersFilter,
+}) => {
+  const { displayName, uid, photoUrl, activeAgo, isActive } = chat;
 
   return (
-    <div className={styles.chat_message}>
+    <div
+      className={styles.chat_message}
+      onClick={() => setUidChatSelected(uid)}
+    >
       <figure className={styles.img_user_message}>
         <img
           src={photoUrl ? photoUrl : photoUser}
-          alt={`Foto de perfil de ${shortName(displayName)}`}
+          alt={`Foto de perfil de Martin`}
         />
+        <p>{isActive ? "En linea" : getTimeAgo(activeAgo)}</p>
       </figure>
 
       <div className={styles.name_user}>
         <p>{shortName(displayName)}</p>
-        <p>{lastMessage?.substring(0, 24) + "..."}</p>
+        {getUsersFilter.map(
+          (chatUser) =>
+            chatUser[1]?.uid === uid && (
+              <p key={chatUser[0]}>
+                {chatUser[1]?.lastMessage?.substring(0, 24) + "..."}
+              </p>
+            )
+        )}
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { BiSearchAlt } from "react-icons/bi";
 import { BsArrowLeft } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
@@ -8,11 +8,19 @@ import { CardChatFilter } from "./CardChatFilter";
 import { shortName } from "../../helpers";
 import { firebaseDB } from "../../firebase";
 import { doc, onSnapshot } from "firebase/firestore";
+import { getUserByChat } from "../helpers/getUsersByChat";
 
 import styles from "./chatsApp.module.css";
 
-export const ChatsApp = ({ setopenChatMessage, infoUserActive }) => {
+export const ChatsApp = ({
+  infoUserActive,
+  setUidChatSelected,
+  setopenChatMessage,
+  users,
+}) => {
   const [chatsFilters, setChatsFilters] = useState([]);
+  const getUsersFilter = Object.entries(chatsFilters || []);
+
   const navigate = useNavigate();
   const { searchChat, onInputChange } = useForm({
     searchChat: "",
@@ -30,10 +38,19 @@ export const ChatsApp = ({ setopenChatMessage, infoUserActive }) => {
     return () => unSuscribed();
   }, [infoUserActive?.uid]);
 
+  const getUsers = users?.filter((user) =>
+    getUsersFilter.find((chat) => user.uid === chat[1].uid)
+  );
+
+  const chatsFilterMap = useMemo(
+    () => getUserByChat(getUsers, searchChat),
+    [getUsers, searchChat]
+  );
+
   return (
     <section className={styles.container_chat}>
       <div className={styles.return_nav}>
-        <BsArrowLeft onClick={() => navigate(-1)} />
+        <BsArrowLeft onClick={() => navigate("/")} />
         <p>{shortName(infoUserActive?.displayName)}</p>
       </div>
 
@@ -57,11 +74,14 @@ export const ChatsApp = ({ setopenChatMessage, infoUserActive }) => {
             className={styles.content_chats_to_message}
             onClick={() => setopenChatMessage(true)}
           >
-            {Object.entries(chatsFilters)
-              .sort((a, b) => b[1].createMessage - a[1].createMessage)
-              .map((chat) => (
-                <CardChatFilter key={chat[0]} chat={chat[1]} />
-              ))}
+            {chatsFilterMap.map((chat) => (
+              <CardChatFilter
+                key={chat.idDoc}
+                chat={chat}
+                getUsersFilter={getUsersFilter}
+                setUidChatSelected={setUidChatSelected}
+              />
+            ))}
           </div>
         </div>
       </div>

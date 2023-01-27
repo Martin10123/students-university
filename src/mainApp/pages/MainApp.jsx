@@ -72,7 +72,11 @@ export const MainApp = () => {
                 (user) =>
                   user.uid !== infoUserActive?.uid &&
                   user.selectFormUser === "Brindar" && (
-                    <CardStudents key={user.idDoc} {...user} />
+                    <CardStudents
+                      infoUserActive={infoUserActive}
+                      key={user.idDoc}
+                      user={user}
+                    />
                   )
               )}
             </div>

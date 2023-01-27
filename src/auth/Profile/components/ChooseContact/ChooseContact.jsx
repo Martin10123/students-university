@@ -3,7 +3,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { BsWhatsapp } from "react-icons/bs";
 import { MdAlternateEmail } from "react-icons/md";
 import { RiMessengerLine } from "react-icons/ri";
-import { SentChatModal } from "../SentChatModal/SentChatModal";
+import { SentChatModal } from "../../../../chatting";
 
 import styles from "./chooseContact.module.css";
 

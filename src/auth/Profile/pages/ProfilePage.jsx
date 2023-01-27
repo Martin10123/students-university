@@ -27,7 +27,7 @@ export const ProfilePage = () => {
   useScroll([openAddImageProfile]);
 
   const onLogout = async () => {
-    await startLogout(infoUserActive?.idDoc);
+    await startLogout(infoUserActive?.uid);
   };
 
   if (!userSelected) {

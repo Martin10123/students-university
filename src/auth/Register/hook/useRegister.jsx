@@ -1,5 +1,5 @@
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { useState } from "react";
 import { firebaseAuth, firebaseDB } from "../../../firebase";
 import { createAccountDate, generateUsernameUnic } from "../../../helpers";
@@ -65,20 +65,10 @@ export const useRegister = () => {
 
     setStartLoading(true);
 
-    const formDataUnion = {
-      ...formState,
-      subjectSelectGood: selectSubject,
-      isActive: false,
-      activeAgo: 0,
-      photoUrl: null,
-      votesBad: [],
-      votesGood: [],
-    };
-
     try {
-      const { email, password1, displayName } = formDataUnion;
+      const { email, password1, displayName } = formState;
 
-      // desestructuramos de formDataUnion el email, password y el name, para enviarlos como parametro
+      // desestructuramos de formState el email, password y el name, para enviarlos como parametro
       // a la funcion que nos ofrece firebase para crear el usuario y actualizar su nombre
 
       const { user } = await createUserWithEmailAndPassword(
@@ -88,7 +78,7 @@ export const useRegister = () => {
       );
 
       await updateProfile(firebaseAuth.currentUser, {
-        displayName: displayName,
+        displayName,
       });
 
       // generateUsernameUnic función que genera un nombre de usuario aleatorio
@@ -98,20 +88,20 @@ export const useRegister = () => {
       // createAccountDate función que genera la fecha de cuando creo su cuenta
       const createAccount = createAccountDate(new Date().getTime());
 
-      delete formDataUnion.password1;
-      delete formDataUnion.password2;
+      delete formState.password1;
+      delete formState.password2;
 
-      await addDoc(collection(firebaseDB, "users"), {
-        ...formDataUnion,
-        uid: user.uid,
-        createAccount,
-        username,
+      await setDoc(doc(firebaseDB, "users", user.uid), {
+        ...formState,
+        isActive: true,
         photoUrl: null,
+        subjectSelectGood: selectSubject,
+        uid: user.uid,
+        username,
         votesBad: [],
         votesGood: [],
+        createAccount,
       });
-
-      await setDoc(doc(firebaseDB, "userChats", user.uid), {});
 
       setStartLoading(false);
     } catch (error) {

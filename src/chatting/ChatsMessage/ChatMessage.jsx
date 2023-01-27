@@ -1,3 +1,5 @@
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import { useEffect, useState } from "react";
 import {
   BsArrowLeft,
   BsCameraVideo,
@@ -6,28 +8,72 @@ import {
 } from "react-icons/bs";
 import { MdOutlineAddReaction } from "react-icons/md";
 import { TbMicrophone } from "react-icons/tb";
+import { useNavigate } from "react-router-dom";
 import { photoUser } from "../../assets";
+import { firebaseDB } from "../../firebase";
+import { getTimeAgo, shortName } from "../../helpers";
 import { useForm } from "../../hook";
+import { onSendingMessage } from "../helpers";
 
 import styles from "./chatMessage.module.css";
 
 export const ChatMessage = ({
+  findUserSelected,
   infoUserActive,
   openChatMessage,
   setopenChatMessage,
 }) => {
   const openChat = openChatMessage ? "" : styles.hidden_component;
-
+  const [messages, setMessages] = useState([]);
+  const navigate = useNavigate();
   const { message, onInputChange, onResetForm } = useForm({ message: "" });
+  const { displayName, uid, photoUrl, username, activeAgo, isActive } =
+    findUserSelected;
+  const combinedUid =
+    infoUserActive.uid > findUserSelected.uid
+      ? infoUserActive.uid + findUserSelected.uid
+      : findUserSelected.uid + infoUserActive.uid;
 
-  const onSubmitMessage = (e) => {
+  useEffect(() => {
+    const docRef = query(
+      collection(firebaseDB, `messages/${combinedUid}/entry`),
+      orderBy("createMessage", "asc")
+    );
+
+    const unSuscribed = onSnapshot(docRef, (messages) => {
+      const arrayMessages = messages.docs.map((doc) => {
+        return {
+          idDoc: doc.id,
+          ...doc.data(),
+        };
+      });
+      setMessages(arrayMessages);
+    });
+
+    return () => unSuscribed();
+  }, [combinedUid]);
+
+  const onSubmitMessage = async (e) => {
     e.preventDefault();
     if (message.trim().length === 0) return;
 
     try {
-    } catch (error) {}
+      await onSendingMessage({
+        combinedUid,
+        infoUserActive,
+        message,
+        navigate,
+        userSelected: findUserSelected,
+      });
 
-    onResetForm();
+      onResetForm();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const goToProfile = () => {
+    navigate(`/${username}`);
   };
 
   return (
@@ -37,11 +83,15 @@ export const ChatMessage = ({
           <div className={styles.image_user}>
             <BsArrowLeft onClick={() => setopenChatMessage(false)} />
 
-            <img src={photoUser} alt="Foto de perfil" />
+            <img
+              alt="Foto de perfil"
+              onClick={goToProfile}
+              src={photoUrl ? photoUrl : photoUser}
+            />
 
             <span className={styles.name_user}>
-              <p>{"displayName"}</p>
-              <p>Hace 3 min</p>
+              <p>{shortName(displayName)}</p>
+              <p>{isActive ? "En linea" : `Hace ${getTimeAgo(activeAgo)}`}</p>
             </span>
           </div>
 
@@ -52,10 +102,14 @@ export const ChatMessage = ({
         </div>
 
         <div className={styles.messages_users}>
-          {[1, 2].map((num) => (
+          {messages.map((message) => (
             <div
-              key={num}
-              className={num === 1 ? styles.message_left : styles.message_right}
+              key={message.idDoc}
+              className={
+                message.uid !== infoUserActive?.uid
+                  ? styles.message_left
+                  : styles.message_right
+              }
             >
               <div className={styles.message_img_hour}>
                 <img
@@ -63,14 +117,9 @@ export const ChatMessage = ({
                   src={photoUser}
                   alt="Foto de martin"
                 />
-                <p>10:20pm</p>
+                <p>{getTimeAgo(message.createMessage)}</p>
               </div>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim
-                sunt officia, recusandae excepturi dolore perspiciatis aut
-                deserunt impedit vitae amet placeat itaque tenetur quibusdam
-                deleniti illo, laboriosam inventore. Quisquam, necessitatibus?
-              </p>
+              <p>{message.message}</p>
             </div>
           ))}
         </div>

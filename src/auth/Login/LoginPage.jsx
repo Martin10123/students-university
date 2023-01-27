@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { doc, updateDoc } from "firebase/firestore";
 
 import { AiOutlineMail } from "react-icons/ai";
 import { BsArrowLeft } from "react-icons/bs";
@@ -7,7 +8,7 @@ import { CiLogin } from "react-icons/ci";
 import { Link } from "react-router-dom";
 import { RiLockPasswordLine } from "react-icons/ri";
 
-import { firebaseAuth } from "../../firebase";
+import { firebaseAuth, firebaseDB } from "../../firebase";
 import { MessageError, ValidatorFormLogin } from "../helpers";
 import { useForm } from "../../hook";
 
@@ -40,7 +41,15 @@ export const LoginPage = () => {
     setStartLoadingLogin(true);
 
     try {
-      await signInWithEmailAndPassword(firebaseAuth, email, password);
+      const { user } = await signInWithEmailAndPassword(
+        firebaseAuth,
+        email,
+        password
+      );
+
+      await updateDoc(doc(firebaseDB, "users", user.uid), {
+        isActive: true,
+      });
 
       setStartLoadingLogin(false);
     } catch (error) {
