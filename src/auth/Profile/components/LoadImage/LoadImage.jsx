@@ -9,7 +9,7 @@ export const LoadImage = ({ setOpenAddImageProfile }) => {
   const [startLoadingPhoto, setStartLoadingPhoto] = useState(false);
   const { infoUserActive } = useContext(AuthUserContext);
 
-  const { displayName, uid, idDoc } = infoUserActive;
+  const { displayName, uid } = infoUserActive;
 
   const fileInputRef = useRef();
 
@@ -24,7 +24,6 @@ export const LoadImage = ({ setOpenAddImageProfile }) => {
       loadImageProfileUser({
         displayName,
         file,
-        idDoc,
         setOpenAddImageProfile,
         setStartLoadingPhoto,
         uid,

@@ -5,7 +5,6 @@ import { firebaseDB, storage } from "../firebase";
 export const loadImageProfileUser = ({
   displayName,
   file,
-  idDoc,
   setStartLoadingPhoto,
   setOpenAddImageProfile,
   uid,
@@ -23,7 +22,7 @@ export const loadImageProfileUser = ({
     },
     () => {
       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-        const docRef = doc(firebaseDB, "users", idDoc);
+        const docRef = doc(firebaseDB, "users", uid);
 
         updateDoc(docRef, {
           photoUrl: downloadURL,

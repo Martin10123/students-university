@@ -33,7 +33,10 @@ export const OptionsMenu = ({
       className={`${styles.container} ${showOptionStyles}`}
     >
       <figure className={styles.image_user} onClick={onGoToProfile}>
-        <img src={photoUser} alt="Foto del usuario" />
+        <img
+          src={infoUserActive?.photoUrl ? infoUserActive?.photoUrl : photoUser}
+          alt="Foto del usuario"
+        />
         <figcaption>{shortName(infoUserActive?.displayName)}</figcaption>
       </figure>
       <div className={styles.list_options}>
