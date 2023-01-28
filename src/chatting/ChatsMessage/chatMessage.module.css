@@ -39,7 +39,8 @@
   gap: 1rem;
 }
 
-.image_user img {
+.image_user img,
+.img_inside_message {
   width: 2.5rem;
   height: 2.5rem;
   object-fit: cover;
@@ -71,9 +72,9 @@
 .message_right {
   align-items: end;
   display: grid;
-  gap: 1rem;
-  grid-template-columns: 4rem 1fr;
+  grid-template-columns: 3.3rem 1fr;
   margin: 0 0 1.5rem 0;
+  position: relative;
   width: 100%;
 }
 
@@ -90,12 +91,21 @@
   width: 2.5rem;
 }
 
-.message_img_hour {
+.content_img_user_chat {
+  cursor: pointer;
+  position: relative;
+}
+
+.message_right .message_img_hour {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
   width: 4rem;
 }
 
 .message_img_hour > p {
   font-size: 0.8rem;
+  text-align: center;
 }
 
 .message_left > p,
@@ -104,11 +114,24 @@
   border-radius: 1rem;
   padding: 0.5rem;
   width: fit-content;
+  word-break: break-word;
 }
 
 .message_right > p {
   background: #0099ff;
   color: #fff;
+}
+
+.message_right .icon_message {
+  bottom: 0;
+  position: absolute;
+  right: 0;
+}
+
+.message_left .icon_message {
+  bottom: 0;
+  position: absolute;
+  right: 0.5rem;
 }
 
 .form_input {
@@ -131,6 +154,7 @@
   background: #0099ff;
   border-radius: 50%;
   color: #fff;
+  cursor: pointer;
   display: flex;
   font-size: 1.3rem;
   height: 2rem;
@@ -152,6 +176,54 @@
   font-size: 1.5rem;
   gap: 0.5rem;
 }
+
+/* Options menu */
+
+.container_options {
+  align-items: center;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.background_close {
+  background: #00000066;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  z-index: -1;
+  width: 100%;
+}
+
+.content_options {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 1px 1px 6px;
+  display: grid;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.item {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  font-size: 1.2rem;
+  gap: 1rem;
+}
+
+.item svg {
+  color: #0099ff;
+  font-size: 1.5rem;
+}
+
+/* Options menu */
 
 @media (min-width: 700px) {
   .hidden_component {

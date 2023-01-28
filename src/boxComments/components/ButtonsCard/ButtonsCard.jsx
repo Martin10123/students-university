@@ -7,9 +7,11 @@ import { CgProfile } from "react-icons/cg";
 
 import { EditComment, SureDelete } from "../";
 import { useScroll } from "../../../hook";
+import { logicVotes } from "../../../helpers";
 
 import styles from "./buttonCard.module.css";
-import { logicVotes } from "../../../helpers";
+import { firebaseDB } from "../../../firebase";
+import { deleteDoc, doc } from "firebase/firestore";
 
 export const ButtonsCard = ({
   comment,
@@ -19,6 +21,8 @@ export const ButtonsCard = ({
 }) => {
   const [openSureDelete, setOpenSureDelete] = useState(false);
   const [openEditComment, setOpenEditComment] = useState(false);
+  const pathRef = `comments/${userFoundByUsername?.uid}/journal/${comment?.idDoc}`;
+
   const navigate = useNavigate();
 
   const { votesGood, votesBad, username } = comment;
@@ -33,8 +37,6 @@ export const ButtonsCard = ({
 
   const onReactionComment = async (type) => {
     try {
-      const pathRef = `comments/${userFoundByUsername?.uid}/journal/${comment?.idDoc}`;
-
       await logicVotes(comment, type, uidUserOnline, pathRef);
     } catch (error) {
       console.log(error);
@@ -50,6 +52,16 @@ export const ButtonsCard = ({
   const votesBadSelected = votesBad.includes(uidUserOnline)
     ? { background: "#ff0000", color: "#fff" }
     : {};
+
+  const onDeleteComment = async () => {
+    try {
+      await deleteDoc(doc(firebaseDB, pathRef));
+
+      setOpenSureDelete(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useScroll([openSureDelete, openEditComment]);
 
@@ -90,9 +102,8 @@ export const ButtonsCard = ({
 
       {openSureDelete && (
         <SureDelete
-          comment={comment}
+          onDeleteComment={onDeleteComment}
           setOpenSureDelete={setOpenSureDelete}
-          userFoundByUsername={userFoundByUsername}
         />
       )}
       {openEditComment && (

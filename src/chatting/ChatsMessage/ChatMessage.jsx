@@ -1,19 +1,14 @@
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import {
-  BsArrowLeft,
-  BsCameraVideo,
-  BsFillCameraFill,
-  BsTelephone,
-} from "react-icons/bs";
-import { MdOutlineAddReaction } from "react-icons/md";
-import { TbMicrophone } from "react-icons/tb";
+import { BsArrowLeft, BsCameraVideo, BsTelephone } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { photoUser } from "../../assets";
 import { firebaseDB } from "../../firebase";
 import { getTimeAgo, shortName } from "../../helpers";
 import { useForm } from "../../hook";
 import { onSendingMessage } from "../helpers";
+import { ContentMessages } from "./ContentMessages";
+import { InputSendMessage } from "./InputSendMessage";
 
 import styles from "./chatMessage.module.css";
 
@@ -25,9 +20,10 @@ export const ChatMessage = ({
 }) => {
   const openChat = openChatMessage ? "" : styles.hidden_component;
   const [messages, setMessages] = useState([]);
+
   const navigate = useNavigate();
   const { message, onInputChange, onResetForm } = useForm({ message: "" });
-  const { displayName, uid, photoUrl, username, activeAgo, isActive } =
+  const { displayName, photoUrl, username, activeAgo, isActive } =
     findUserSelected;
   const combinedUid =
     infoUserActive.uid > findUserSelected.uid
@@ -89,10 +85,10 @@ export const ChatMessage = ({
               src={photoUrl ? photoUrl : photoUser}
             />
 
-            <span className={styles.name_user}>
+            <div className={styles.name_user}>
               <p>{shortName(displayName)}</p>
               <p>{isActive ? "En linea" : `Hace ${getTimeAgo(activeAgo)}`}</p>
-            </span>
+            </div>
           </div>
 
           <div className={styles.content_mobile}>
@@ -101,49 +97,18 @@ export const ChatMessage = ({
           </div>
         </div>
 
-        <div className={styles.messages_users}>
-          {messages.map((message) => (
-            <div
-              key={message.idDoc}
-              className={
-                message.uid !== infoUserActive?.uid
-                  ? styles.message_left
-                  : styles.message_right
-              }
-            >
-              <div className={styles.message_img_hour}>
-                <img
-                  className={styles.img_user_message}
-                  src={photoUser}
-                  alt="Foto de martin"
-                />
-                <p>{getTimeAgo(message.createMessage)}</p>
-              </div>
-              <p>{message.message}</p>
-            </div>
-          ))}
-        </div>
+        <ContentMessages
+          infoUserActive={infoUserActive}
+          messages={messages}
+          photoUrl={photoUrl}
+          combinedUid={combinedUid}
+        />
 
-        <div className={styles.form_input}>
-          <form className={styles.input_div} onSubmit={onSubmitMessage}>
-            <div className={styles.camera_send_photo}>
-              <BsFillCameraFill className={styles.svg_input} />
-            </div>
-            <input
-              type="text"
-              placeholder="Enviar un mensaje..."
-              className={styles.input_form_value}
-              name="message"
-              value={message}
-              onChange={onInputChange}
-            />
-
-            <div className={styles.content_other_svg}>
-              <TbMicrophone className={styles.svg_input} />
-              <MdOutlineAddReaction className={styles.svg_input} />
-            </div>
-          </form>
-        </div>
+        <InputSendMessage
+          message={message}
+          onInputChange={onInputChange}
+          onSubmitMessage={onSubmitMessage}
+        />
       </div>
     </div>
   );

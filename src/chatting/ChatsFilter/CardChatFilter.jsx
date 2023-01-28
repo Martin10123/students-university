@@ -25,14 +25,16 @@ export const CardChatFilter = ({
 
       <div className={styles.name_user}>
         <p>{shortName(displayName)}</p>
-        {getUsersFilter.map(
-          (chatUser) =>
-            chatUser[1]?.uid === uid && (
-              <p key={chatUser[0]}>
-                {chatUser[1]?.lastMessage?.substring(0, 24) + "..."}
-              </p>
-            )
-        )}
+        {getUsersFilter.map((chatUser) => {
+          const lastMessage =
+            chatUser[1]?.lastMessage.length >= 24
+              ? chatUser[1]?.lastMessage?.substring(0, 24) + "..."
+              : chatUser[1]?.lastMessage;
+
+          return (
+            chatUser[1]?.uid === uid && <p key={chatUser[0]}>{lastMessage}</p>
+          );
+        })}
       </div>
     </div>
   );

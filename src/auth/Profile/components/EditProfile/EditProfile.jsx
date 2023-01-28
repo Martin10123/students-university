@@ -19,6 +19,7 @@ export const EditProfile = ({ setOpenEditProfile, userSelected }) => {
     semester,
     subjectSelectGood,
     idDoc,
+    uid,
   } = userSelected;
 
   const { selectSubject, onSelectSubjects } = useRegister();
@@ -70,7 +71,7 @@ export const EditProfile = ({ setOpenEditProfile, userSelected }) => {
     };
 
     try {
-      const docRef = doc(firebaseDB, "users", idDoc);
+      const docRef = doc(firebaseDB, "users", uid);
 
       await updateDoc(docRef, {
         ...formEditUser,

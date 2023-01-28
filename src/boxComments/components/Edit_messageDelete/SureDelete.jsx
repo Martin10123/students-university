@@ -3,26 +3,7 @@ import { firebaseDB } from "../../../firebase";
 
 import styles from "./styles.module.css";
 
-export const SureDelete = ({
-  comment,
-  setOpenSureDelete,
-  userFoundByUsername,
-}) => {
-  const onDeleteComment = async () => {
-    try {
-      const docRef = doc(
-        firebaseDB,
-        `comments/${userFoundByUsername?.uid}/journal/${comment?.idDoc}`
-      );
-
-      await deleteDoc(docRef);
-
-      setOpenSureDelete(false);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+export const SureDelete = ({ setOpenSureDelete, onDeleteComment }) => {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
