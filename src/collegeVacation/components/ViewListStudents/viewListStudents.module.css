@@ -1,0 +1,108 @@
+.container {
+  background: #fff;
+  height: 100vh;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 999;
+}
+
+.content {
+  display: grid;
+  grid-template-rows: 0fr 1fr;
+  height: 100%;
+  padding: 1rem;
+  width: 100%;
+}
+
+.nav {
+  align-items: center;
+  border-bottom: 1px solid gray;
+  display: flex;
+  gap: 1rem;
+  margin: 0 0 1rem;
+  padding: 0 0 1rem 0;
+}
+
+.nav > svg {
+  cursor: pointer;
+  font-size: 1.8rem;
+}
+
+.nav > p {
+  font-size: 1.2rem;
+}
+
+.list_students {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow: auto;
+  padding: 0 0.2rem;
+  width: 100%;
+}
+
+.list_item {
+  align-items: center;
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 1px 1px 6px #80808074;
+  color: #4e42d4;
+  display: grid;
+  font-size: 1.1rem;
+  gap: 0.5rem;
+  grid-template-columns: 0fr 1fr 0fr;
+  height: 6rem;
+  padding: 0.5rem;
+  width: 100%;
+}
+
+.img_user {
+  border-radius: 50%;
+  height: 3rem;
+  object-fit: cover;
+  width: 3rem;
+}
+
+.name_carrer > p:nth-child(2) {
+  font-size: 0.9rem;
+  color: gray;
+}
+
+.buttons_user {
+  align-items: center;
+  display: flex;
+  font-size: 1rem;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.buttons_user > svg {
+  cursor: pointer;
+}
+
+.buttons_user > svg:nth-child(2) {
+  color: #ff0000;
+}
+
+@media (min-width: 1000px) {
+  .container {
+    align-items: center;
+    background: #000000bc;
+    display: flex;
+    justify-content: center;
+  }
+
+  .content {
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 1px 1px 6px;
+    height: 40rem;
+    width: 32rem;
+  }
+
+  .buttons_user {
+    font-size: 1.3rem;
+  }
+}

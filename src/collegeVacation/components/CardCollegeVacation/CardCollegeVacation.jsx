@@ -1,38 +1,41 @@
+import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { useState } from "react";
+import { firebaseDB } from "../../../firebase";
+import { ViewListStudents } from "../ViewListStudents/ViewListStudents";
+import { ButtonsOnlyCreatorPull } from "./ButtonsOnlyCreatorPull";
+import { InfoVacation } from "./InfoVacation";
+import { MessageAndButtonInscribed } from "./MessageAndButtonInscribed";
+
 import styles from "./cardCollegeVacation.module.css";
 
-export const CardCollegeVacation = () => {
+export const CardCollegeVacation = ({ infoUserActive, vacation, users }) => {
+  const [openListStudents, setOpenListStudents] = useState(false);
+
   return (
-    <div className={styles.info_card}>
-      <p className={styles.title_subject}>Ingles</p>
-      <p className={styles.title_card}>
-        Profesor: <span>Luis perez</span>
-      </p>
+    <>
+      <div className={styles.info_card}>
+        <InfoVacation vacation={vacation} />
 
-      <p className={styles.name_creator}>
-        Creado por: <span>Martin Elias</span>
-      </p>
-      <p className={styles.cellphone}>300-000-0000</p>
-      <p className={styles.student_required}>
-        Estudiantes requeridos: <span>10</span>
-      </p>
-      <p className={styles.student_required}>
-        Restan: <span>10</span> cupos
-      </p>
-      <div className={styles.separate_couples}>
-        <p>20-01-2023</p>
-        <p>
-          Inscritos: <span>2</span>
-        </p>
+        <MessageAndButtonInscribed
+          infoUserActive={infoUserActive}
+          vacation={vacation}
+        />
+
+        <ButtonsOnlyCreatorPull
+          infoUserActive={infoUserActive}
+          vacation={vacation}
+          setOpenListStudents={setOpenListStudents}
+        />
       </div>
 
-      <div className={styles.buttons_card}>
-        <button>Inscribirme</button>
-        <button>No interesa</button>
-      </div>
-
-      <div className={styles.button_only_creator}>
-        <button className={styles.button_close_poll}>Cerrar encuesta</button>
-      </div>
-    </div>
+      {openListStudents && (
+        <ViewListStudents
+          setOpenListStudents={setOpenListStudents}
+          users={users}
+          infoUserActive={infoUserActive}
+          vacation={vacation}
+        />
+      )}
+    </>
   );
 };

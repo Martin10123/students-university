@@ -3,7 +3,6 @@
   border-radius: 0.5rem;
   border: 2px solid #80808052;
   box-shadow: 1px 1px 11px #80808078;
-  cursor: pointer;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -14,26 +13,30 @@
 
 .title_subject {
   color: #1d79d3;
+  font-size: 1.5rem;
+  font-weight: 500;
   text-align: center;
-  font-size: 2rem;
 }
 
 .title_card,
 .name_creator,
 .student_required {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: #1d79d3;
 }
 
 .title_card > span,
-.name_creator > span,
+.name_creator > a,
 .student_required > span,
 .separate_couples p > span {
   font-size: 1.1rem;
   color: #000;
 }
 
-.cellphone,
+.cellphone {
+  font-size: 1.2rem;
+}
+
 .separate_couples p {
   color: #1d79d3;
   font-size: 1.2rem;
@@ -46,15 +49,24 @@
   grid-template-columns: 1fr 1fr;
 }
 
+.collegeVacationFull,
+.msg_depend_status {
+  font-size: 1.2rem;
+  text-align: center;
+}
+
 .buttons_card {
-  display: grid;
-  gap: 0.5rem;
-  grid-template-columns: 1fr 1fr;
   margin: 1rem 0 0;
 }
 
+.button_only_creator {
+  display: grid;
+  gap: 1rem;
+}
+
 .buttons_card button,
-.button_close_poll {
+.button_close_poll,
+.button_see_students {
   background: transparent;
   border-radius: 0.3rem;
   border: 1px solid #1d79d3;
@@ -66,7 +78,8 @@
   width: 100%;
 }
 
-.buttons_card button:hover {
+.buttons_card button:hover,
+.button_see_students:hover {
   background: #1d79d3;
   color: #fff;
   transition: 0.3s ease-in-out;
