@@ -1,6 +1,4 @@
-import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { useState } from "react";
-import { firebaseDB } from "../../../firebase";
 import { ViewListStudents } from "../ViewListStudents/ViewListStudents";
 import { ButtonsOnlyCreatorPull } from "./ButtonsOnlyCreatorPull";
 import { InfoVacation } from "./InfoVacation";
@@ -14,7 +12,10 @@ export const CardCollegeVacation = ({ infoUserActive, vacation, users }) => {
   return (
     <>
       <div className={styles.info_card}>
-        <InfoVacation vacation={vacation} />
+        <InfoVacation
+          vacation={vacation}
+          setOpenListStudents={setOpenListStudents}
+        />
 
         <MessageAndButtonInscribed
           infoUserActive={infoUserActive}

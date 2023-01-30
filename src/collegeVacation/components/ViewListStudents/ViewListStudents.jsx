@@ -28,6 +28,7 @@ export const ViewListStudents = ({
               inscribed.includes(user.uid) && (
                 <CardListStudent
                   idDoc={idDoc}
+                  user={user}
                   isTheCreator={isTheCreator}
                   key={user.idDoc}
                 />

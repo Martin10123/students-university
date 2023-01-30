@@ -2,12 +2,11 @@ import { Link } from "react-router-dom";
 
 import styles from "./cardCollegeVacation.module.css";
 
-export const InfoVacation = ({ vacation }) => {
+export const InfoVacation = ({ vacation, setOpenListStudents }) => {
   const {
     displayName,
     inscribed,
     phoneNumber,
-    setOpenListStudents,
     start,
     studentsLength,
     subject,

@@ -1,4 +1,6 @@
 import { arrayRemove, doc, updateDoc } from "firebase/firestore";
+import { BiTrashAlt } from "react-icons/bi";
+import { FaUserCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { photoUser } from "../../../assets";
 import { firebaseDB } from "../../../firebase";
@@ -41,7 +43,7 @@ export const CardListStudent = ({ isTheCreator, user, idDoc }) => {
         <div className={styles.buttons_user}>
           <FaUserCircle onClick={() => navigate(`/${username}`)} />
 
-          <BiTrashAlt onClick={onDeleteUserInscribed()} />
+          <BiTrashAlt onClick={onDeleteUserInscribed} />
         </div>
       )}
     </div>

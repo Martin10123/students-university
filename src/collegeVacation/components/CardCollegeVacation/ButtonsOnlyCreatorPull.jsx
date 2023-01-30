@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { doc, updateDoc } from "firebase/firestore";
+import { SureDelete } from "../../../boxComments/components";
 import { firebaseDB } from "../../../firebase";
 
 import styles from "./cardCollegeVacation.module.css";
@@ -9,11 +11,22 @@ export const ButtonsOnlyCreatorPull = ({
   vacation,
 }) => {
   const { uid, openPull, idDoc } = vacation;
+  const [openSureDelete, setOpenSureDelete] = useState(false);
 
   const onClosePullVacation = async () => {
     try {
       await updateDoc(doc(firebaseDB, `collegeVacation/${idDoc}`), {
         openPull: !openPull,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const onDeletePull = async () => {
+    try {
+      await updateDoc(doc(firebaseDB, `collegeVacation/${idDoc}`), {
+        deletePull: true,
       });
     } catch (error) {
       console.log(error);
@@ -30,17 +43,32 @@ export const ButtonsOnlyCreatorPull = ({
           >
             Ver inscritos
           </button>
-          <button
-            className={styles.button_close_poll}
-            style={{
-              background: !openPull ? "#ff0000" : "transparent",
-              color: !openPull ? "#fff" : "#ff0000",
-            }}
-            onClick={onClosePullVacation}
-          >
-            {openPull ? "Cerrar encuesta" : "Encuesta cerrada"}
-          </button>
+          <div className={styles.buttons_close_something}>
+            <button
+              className={styles.button_close_poll}
+              style={{
+                background: !openPull ? "#ff0000" : "transparent",
+                color: !openPull ? "#fff" : "#ff0000",
+              }}
+              onClick={onClosePullVacation}
+            >
+              {openPull ? "Cerrar encuesta" : "Encuesta cerrada"}
+            </button>
+            <button
+              className={styles.button_close_poll}
+              onClick={() => setOpenSureDelete(true)}
+            >
+              Borrar encuesta
+            </button>
+          </div>
         </div>
+      )}
+
+      {openSureDelete && (
+        <SureDelete
+          onDeleteComment={onDeletePull}
+          setOpenSureDelete={setOpenSureDelete}
+        />
       )}
     </>
   );

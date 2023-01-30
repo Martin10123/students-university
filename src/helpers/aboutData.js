@@ -4,7 +4,6 @@ import {
   gitIcon,
   javaScript,
   reactIcon,
-  reduxIcon,
   visualStudio,
 } from "../assets";
 
@@ -29,13 +28,6 @@ export const aboutData = [
     info: "Lenguaje de programación con el que lo maneje, quise utilizar TypeScript, pero aún no me entiendo algunos conceptos, asi que lo manejo por el momento con el, igual me siento bien utilizandolo.",
     linkToPage: "https://developer.mozilla.org/es/docs/Web/JavaScript",
     name: "JavaScript",
-  },
-  {
-    alt: "Logo de redux",
-    img: reduxIcon,
-    info: "Redux-toolkit lo elegi para manejar el estado global de mi aplicación, lo estoy aprendiendo asi que me parecio bueno utilizarlo aqui para mejorar mis conocimientos con el, ofrece amplios recursos que te facilitan mucho acceder a los valores que buscas en el estado.",
-    linkToPage: "https://redux-toolkit.js.org/",
-    name: "Redux-toolkit",
   },
   {
     alt: "Logo de firebase",

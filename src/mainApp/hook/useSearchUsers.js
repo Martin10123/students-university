@@ -25,10 +25,12 @@ export const useSearchUsers = () => {
   const getUserByName = () => {
     if (search.length === 0) return users;
 
-    return users.filter((user) =>
-      user.displayName
-        .toLocaleLowerCase()
-        .includes(search.toLocaleLowerCase().trim())
+    return users.filter(
+      ({ displayName, subject }) =>
+        displayName
+          .toLocaleLowerCase()
+          .includes(search.toLocaleLowerCase().trim()) ||
+        subject.toLocaleLowerCase().includes(search.toLocaleLowerCase().trim())
     );
   };
 

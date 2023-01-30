@@ -57,7 +57,7 @@ export const CollegeVacation = () => {
 
         <hr />
 
-        <div className={styles.content_info_vacation}>
+        <div id="found_vacation" className={styles.content_info_vacation}>
           <h2>Encontrar vacacional</h2>
 
           <div className={styles.content_filter_by}>
@@ -78,16 +78,25 @@ export const CollegeVacation = () => {
             />
           </div>
 
-          <div className={styles.content_card_vacation}>
-            {vacationsFilter.map((vacation) => (
-              <CardCollegeVacation
-                key={vacation.idDoc}
-                vacation={vacation}
-                infoUserActive={infoUserActive}
-                users={users}
-              />
-            ))}
-          </div>
+          {vacationsFilter.length !== 0 ? (
+            <div className={styles.content_card_vacation}>
+              {vacationsFilter.map(
+                (vacation) =>
+                  !vacation?.deletePull && (
+                    <CardCollegeVacation
+                      key={vacation.idDoc}
+                      vacation={vacation}
+                      infoUserActive={infoUserActive}
+                      users={users}
+                    />
+                  )
+              )}
+            </div>
+          ) : (
+            <p className={styles.not_vacations_by_filter}>
+              No se ha agregado ninguna encuesta aún
+            </p>
+          )}
         </div>
 
         {openCreator && (

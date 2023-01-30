@@ -24,9 +24,9 @@ export const WelcomeVacation = ({ setOpenCreator }) => {
           >
             Crear una
           </button>
-          <button className={styles.button_search_vacation}>
+          <a href="#found_vacation" className={styles.button_search_vacation}>
             Buscar vacacional
-          </button>
+          </a>
         </div>
       </div>
 
