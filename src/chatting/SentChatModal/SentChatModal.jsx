@@ -11,6 +11,7 @@ export const SentChatModal = ({
   infoUserActive,
   setOpenSendMessage,
   userSelected,
+  messagePreview,
 }) => {
   const [startLoading, setStartLoading] = useState(false);
   const nameUserActiveReduce = shortName(infoUserActive?.displayName);
@@ -23,7 +24,9 @@ export const SentChatModal = ({
   const navigate = useNavigate();
 
   const { message, onInputChange } = useForm({
-    message: `Hola soy ${nameUserActiveReduce}, ${nameReduce} me gustaria adquirir tus servicios, estas disponible?`,
+    message:
+      messagePreview ||
+      `Hola soy ${nameUserActiveReduce}, ${nameReduce} me gustaria adquirir tus servicios, estas disponible?`,
   });
 
   const onSendMessage = async () => {

@@ -41,8 +41,6 @@ export const ButtonsCard = ({
     } catch (error) {
       console.log(error);
     }
-
-    return;
   };
 
   const votesGoodSelected = votesGood.includes(uidUserOnline)

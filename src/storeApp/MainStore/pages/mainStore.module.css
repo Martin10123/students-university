@@ -60,12 +60,6 @@
   width: 100%;
 }
 
-.content_options_svg {
-  align-items: center;
-  display: flex;
-  gap: 0.5rem;
-}
-
 .search_filter {
   align-items: center;
   background: #fff;

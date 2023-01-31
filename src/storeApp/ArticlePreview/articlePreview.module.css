@@ -90,7 +90,7 @@
   }
 
   .content_desc {
-    max-width: 14.5rem;
+    max-height: 14.5rem;
     overflow: auto;
   }
 }

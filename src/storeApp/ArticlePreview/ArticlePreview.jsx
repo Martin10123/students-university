@@ -1,4 +1,4 @@
-import { imagenStore, photoUser } from "../../assets";
+import { imagenStore } from "../../assets";
 
 import styles from "./articlePreview.module.css";
 
@@ -6,7 +6,14 @@ const ListItem = ({ title }) => {
   return <p className={styles.price}>{title}</p>;
 };
 
-export const ArticlePreview = () => {
+export const ArticlePreview = ({
+  category,
+  formState,
+  photoProduct,
+  stateProduct,
+}) => {
+  const { name, price, productDesc } = formState;
+
   return (
     <div className={styles.content_preview}>
       <div className={styles.preview_box}>
@@ -15,7 +22,14 @@ export const ArticlePreview = () => {
           {true ? (
             <div className={styles.content_message}>
               <figure className={styles.figure}>
-                <img src={imagenStore} alt="Imagen del producto" />
+                <img
+                  src={
+                    photoProduct
+                      ? URL.createObjectURL(photoProduct)
+                      : imagenStore
+                  }
+                  alt="Imagen del producto"
+                />
               </figure>
             </div>
           ) : (
@@ -29,18 +43,18 @@ export const ArticlePreview = () => {
           )}
 
           <div className={styles.info_product}>
-            <h3 className={styles.title}>Titulo</h3>
+            <h3 className={styles.title}>{name || "Titulo"}</h3>
 
-            <ListItem title="$ 200.000" />
+            <ListItem title={Number(price).toLocaleString() || "Precio"} />
 
             <ListItem title="publicado en Colombia" />
 
-            <ListItem title="Categoria" />
+            <ListItem title={category || "Categoria"} />
 
-            <ListItem title="Estado" />
+            <ListItem title={stateProduct || "Estado"} />
 
             <div className={styles.content_desc}>
-              <p>descripción</p>
+              <p>{productDesc || "Descripción"}</p>
             </div>
           </div>
         </div>
