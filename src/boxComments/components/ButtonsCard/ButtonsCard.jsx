@@ -54,8 +54,7 @@ export const ButtonsCard = ({
   const onDeleteComment = async () => {
     try {
       await deleteDoc(doc(firebaseDB, pathRef));
-
-      setOpenSureDelete(false);
+      document.body.style.overflow = "auto";
     } catch (error) {
       console.log(error);
     }

@@ -24,6 +24,7 @@ export function filtrarComentarios(comentario) {
     "culerada",
     "culero",
     "hijueputa",
+    "hp",
     "hijueputada",
     "hijueputear",
     "Huevon",
@@ -67,6 +68,8 @@ export function filtrarComentarios(comentario) {
     "tonta",
     "tontear",
     "tonto",
+    "verga",
+    "vrg",
   ];
   let comentarioFiltrado = comentario;
   // Recorremos el array de palabras vulgares
