@@ -1,5 +1,7 @@
+import { useEffect, useState } from "react";
 import { photoUser } from "../../../assets";
 import { getTimeAgo, shortName } from "../../../helpers";
+import { filtrarComentarios } from "../../helper/commentValid";
 import { ButtonsCard } from "../ButtonsCard/ButtonsCard";
 
 import styles from "./cardComment.module.css";
@@ -32,7 +34,7 @@ export const CardComment = ({
       </div>
 
       <div className={styles.content_message}>
-        <p>{opinion}</p>
+        <p>{filtrarComentarios(opinion)}</p>
       </div>
 
       <ButtonsCard
