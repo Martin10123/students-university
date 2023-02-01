@@ -1,69 +1,40 @@
 import { addDoc, collection } from "firebase/firestore";
-import { useContext, useState } from "react";
 import { BsArrowLeft } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
 import { ArticlePreview } from "../../";
-import { AuthUserContext } from "../../../context";
 import { firebaseDB } from "../../../firebase";
 import { fileUpload } from "../../../helpers";
-import { useForm } from "../../../hook";
-import { validatorFormStore } from "../../helpers";
+
+import { useFormProduct } from "../../Hook/useFormProduct";
 import { FormProduct } from "../components";
 
 import styles from "../selfArticle.module.css";
 
-const dataForm = {
-  name: "",
-  price: 0,
-  productDesc: "",
+const valuesUpdate = {
+  nameU: "",
+  priceU: "",
+  productDescU: "",
+  categoryU: "",
+  stateProductU: "",
+  photoProductU: "",
 };
 
 export const SelfArticle = () => {
-  const { infoUserActive } = useContext(AuthUserContext);
-  const navigate = useNavigate();
-  const { formState, formValidation, isFormValid, onInputChange } = useForm(
-    dataForm,
-    validatorFormStore
-  );
-  const [category, setCategory] = useState("");
-  const [stateProduct, setStateProduct] = useState("");
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  const [startLoadingLogin, setStartLoadingLogin] = useState(false);
-  const [photoProduct, setPhotoProduct] = useState("");
-
-  const onSubmitFormStore = async () => {
-    if (
-      !isFormValid ||
-      category.trim() === "" ||
-      stateProduct.trim() === "" ||
-      photoProduct === ""
-    )
-      return setFormSubmitted(true);
-
-    setStartLoadingLogin(true);
-    try {
-      const file = await fileUpload(photoProduct);
-
-      await addDoc(collection(firebaseDB, "storeApp"), {
-        ...formState,
-        category,
-        displayName: infoUserActive.displayName,
-        photoProduct: file,
-        stateProduct,
-        uid: infoUserActive.uid,
-        username: infoUserActive.username,
-        votesBad: [],
-        votesGood: [],
-      });
-
-      navigate("/store");
-
-      setStartLoadingLogin(false);
-    } catch (error) {
-      console.log(error);
-      setStartLoadingLogin(false);
-    }
-  };
+  const {
+    category,
+    formState,
+    formSubmitted,
+    formValidation,
+    isFormValid,
+    navigate,
+    onInputChange,
+    photoProduct,
+    setCategory,
+    setPhotoProduct,
+    setStateProduct,
+    startLoadingLogin,
+    stateProduct,
+    onSubmitFormStore,
+  } = useFormProduct({ valuesUpdate });
 
   return (
     <div className={styles.content_self_preview}>

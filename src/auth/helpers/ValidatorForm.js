@@ -64,6 +64,30 @@ export const ValidatorFormLogin = {
   ],
 };
 
+// function validarContrasena(password) {
+//   // Debe tener al menos 8 caracteres
+//   if (password.length < 8) {
+//       return false;
+//   }
+//   // Debe contener al menos una letra mayúscula, una minúscula y un número
+//   let mayus = false;
+//   let minus = false;
+//   let num = false;
+//   for (let i = 0; i < password.length; i++) {
+//       if (password[i] >= "A" && password[i] <= "Z") {
+//           mayus = true;
+//       } else if (password[i] >= "a" && password[i] <= "z") {
+//           minus = true;
+//       } else if (password[i] >= "0" && password[i] <= "9") {
+//           num = true;
+//       }
+//   }
+//   if (mayus && minus && num) {
+//       return true;
+//   }
+//   return false;
+// }
+
 export const ValidatorFormRecover = {
   email: [
     (value) => {

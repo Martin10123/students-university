@@ -23,6 +23,7 @@ export const FormProduct = ({
   setPhotoProduct,
   setStateProduct,
   stateProduct,
+  isUpdateValues,
 }) => {
   const [openCategories, setopenCategories] = useState(false);
   const [openState, setopenState] = useState(false);
@@ -43,10 +44,12 @@ export const FormProduct = ({
         <p>{photoProduct ? "1 foto" : "Agregar imagen"}</p>
       </div>
 
-      <MessageError
-        textError="Suba una foto del producto"
-        errorActive={photoProduct === "" && formSubmitted}
-      />
+      {!isUpdateValues && (
+        <MessageError
+          textError="Suba una foto del producto"
+          errorActive={photoProduct === "" && formSubmitted}
+        />
+      )}
 
       <input
         id="inputStore"

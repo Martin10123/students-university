@@ -30,12 +30,12 @@
   font-size: 1.4rem;
 }
 
-.prices_state_product > p:nth-child(1) {
+.prices_state_product > p:nth-child(2) {
   font-size: 1rem;
   color: gray;
 }
 
-.prices_state_product > p:nth-child(2) {
+.prices_state_product > p:nth-child(3) {
   font-size: 1rem;
 }
 
