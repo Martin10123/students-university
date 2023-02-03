@@ -1,17 +1,17 @@
 import { useState } from "react";
 
-import { useNavigate } from "react-router-dom";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
-import { FcLike, FcLikePlaceholder } from "react-icons/fc";
 import { CgProfile } from "react-icons/cg";
+import { deleteDoc, doc } from "firebase/firestore";
+import { FcLike, FcLikePlaceholder } from "react-icons/fc";
+import { useNavigate } from "react-router-dom";
 
 import { EditComment, SureDelete } from "../";
-import { useScroll } from "../../../hook";
+import { firebaseDB } from "../../../firebase";
 import { logicVotes } from "../../../helpers";
+import { useScroll } from "../../../hook";
 
 import styles from "./buttonCard.module.css";
-import { firebaseDB } from "../../../firebase";
-import { deleteDoc, doc } from "firebase/firestore";
 
 export const ButtonsCard = ({
   comment,

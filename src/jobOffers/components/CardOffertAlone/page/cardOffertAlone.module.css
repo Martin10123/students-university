@@ -1,24 +1,13 @@
-.box_requirement_offert {
-  margin: 1rem 0;
-}
-
-.box_requirement_offert > h3 {
-  font-size: 1.3rem;
-  font-weight: 500;
-  margin: 0 0 0.5rem;
-}
-
-.box_requirement_offert > p {
-  border-radius: 1rem;
-  box-shadow: 1px 1px 6px #80808083;
-  cursor: pointer;
-  font-size: 1.1rem;
-  margin: 0.5rem 0;
-  padding: 0.5rem 1rem;
+.container {
+  background: #fff;
+  height: 100vh;
+  left: 0;
+  overflow: auto;
+  position: fixed;
+  top: 0;
   width: 100%;
+  z-index: 999;
 }
-
-/*  */
 
 .nav_return {
   align-items: center;
@@ -31,6 +20,7 @@
 }
 
 .content_info {
+  background: #fff;
   padding: 1rem;
   width: 100%;
 }
@@ -50,7 +40,6 @@
   align-items: center;
   border-radius: 1rem;
   box-shadow: 1px 1px 6px #80808083;
-  cursor: pointer;
   display: flex;
   font-size: 1.1rem;
   gap: 0.4rem;
@@ -59,9 +48,25 @@
   width: 100%;
 }
 
+.buttons_card_alone {
+  align-items: center;
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: 1fr 1fr;
+}
+
+.buttons_card_alone button:nth-child(1) {
+  background: #0099ff;
+}
+
+.buttons_card_alone button:nth-child(2) {
+  background: #ff0000;
+}
+
 .button_close {
-  background: #000;
+  background: transparent;
   border-radius: 0.5rem;
+  border: none;
   color: #fff;
   cursor: pointer;
   font-size: 1.1rem;
@@ -70,12 +75,34 @@
   width: 100%;
 }
 
+.box_requirement_offert {
+  margin: 1rem 0;
+}
+
+.box_requirement_offert > h3 {
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin: 0 0 0.5rem;
+}
+
+.box_requirement_offert > p {
+  align-items: center;
+  border-radius: 1rem;
+  box-shadow: 1px 1px 6px #80808083;
+  display: flex;
+  font-size: 1.1rem;
+  gap: 1rem;
+  margin: 0.5rem 0;
+  padding: 0.5rem 1rem;
+  width: 100%;
+}
+
 @media (min-width: 1000px) {
   .container {
     align-items: center;
+    background: #00000070;
     display: flex;
     justify-content: center;
-    padding: 2rem 0;
   }
 
   .nav_return {
@@ -85,6 +112,8 @@
   .content_info {
     border-radius: 1rem;
     box-shadow: 1px 1px 6px #80808083;
+    height: 45rem;
+    overflow: auto;
     width: 38rem;
   }
 }

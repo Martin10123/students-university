@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { BiSearchAlt } from "react-icons/bi";
 import { AuthUserContext } from "../../context";
@@ -21,6 +21,14 @@ export const CollegeVacation = () => {
   const [openCreator, setOpenCreator] = useState(false);
   const [vacations, setVacations] = useState([]);
   const [searchVacation, setSearchVacation] = useState("");
+  const myRef = useRef(null);
+
+  const handleScroll = () => {
+    window.scrollTo({
+      top: myRef.current.offsetTop,
+      behavior: "smooth",
+    });
+  };
 
   useScroll([openCreator]);
 
@@ -53,11 +61,14 @@ export const CollegeVacation = () => {
     <section className={styles.container}>
       <Navbar backColor="#0099ff" colorLetter="#fff" />
       <div className={styles.content}>
-        <WelcomeVacation setOpenCreator={setOpenCreator} />
+        <WelcomeVacation
+          setOpenCreator={setOpenCreator}
+          handleScroll={handleScroll}
+        />
 
         <hr />
 
-        <div id="found_vacation" className={styles.content_info_vacation}>
+        <div ref={myRef} className={styles.content_info_vacation}>
           <h2>Encontrar vacacional</h2>
 
           <div className={styles.content_filter_by}>

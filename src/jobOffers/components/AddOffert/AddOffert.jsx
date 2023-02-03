@@ -1,108 +1,98 @@
-import { AiOutlineFieldNumber } from "react-icons/ai";
-import { BiRename } from "react-icons/bi";
-import { BsPhone } from "react-icons/bs";
-import { FaUniversalAccess } from "react-icons/fa";
-import { FcIdea } from "react-icons/fc";
-import { GiBrain } from "react-icons/gi";
-import { MdAlternateEmail } from "react-icons/md";
+import { addDoc, collection } from "firebase/firestore";
+import { firebaseDB } from "../../../firebase";
+import { OffersLayout } from "../layout/pages/OffersLayout";
+import { useAddOffer } from "../../hook/useAddOffer";
+import { useContext } from "react";
+import { AuthUserContext } from "../../../context";
 
-import styles from "./addOffert.module.css";
-
-export const ContentSeveralInfo = ({ data = ["Aprender ingles"] }) => {
-  return (
-    <div className={styles.content_requirement_selected}>
-      {data.map((info) => (
-        <p key={info}>{info}</p>
-      ))}
-    </div>
-  );
+const dataform = {
+  nameOffer: "",
+  descOffer: "",
+  emailsOffer: "",
+  numberProfesionals: "",
+  requiredNecesary: "",
+  semesterStudents: "",
+  habilitiesNecesary: "",
 };
 
 export const AddOffert = ({ setOpenAddOffert }) => {
+  const {
+    arrayHabilitiesState,
+    arrayRequiredState,
+    emailsArray,
+    formState,
+    formSubmitted,
+    formValidation,
+    habilitiesArray,
+    isFormValid,
+    onInputChange,
+    onSelectEmails,
+    onSelectValues,
+    requirementArray,
+    setFormSubmitted,
+    setHabilitiesArray,
+    setRequirementArray,
+    setStartLoading,
+    startLoading,
+  } = useAddOffer({ dataform });
+  const { infoUserActive } = useContext(AuthUserContext);
+
+  const onSubmitValues = async () => {
+    const { nameOffer, descOffer, numberProfesionals, semesterStudents } =
+      formState;
+
+    if (
+      !isFormValid ||
+      requirementArray.length === 0 ||
+      emailsArray.length === 0 ||
+      habilitiesArray.length === 0
+    )
+      return setFormSubmitted(true);
+
+    setStartLoading(true);
+    try {
+      await addDoc(collection(firebaseDB, "offersJob"), {
+        closeOffer: false,
+        descOffer,
+        emailsArray,
+        habilitiesArray,
+        nameOffer,
+        numberProfesionals,
+        requirementArray,
+        semesterStudents,
+        uid: infoUserActive?.uid,
+      });
+
+      setStartLoading(false);
+      setOpenAddOffert(false);
+    } catch (error) {
+      console.log(error);
+      setStartLoading(false);
+    }
+  };
+
   return (
-    <section className={styles.container}>
-      <div className={styles.content}>
-        <h2>Agregar oferta</h2>
-
-        <div className={styles.form}>
-          <div className={styles.content_form_input}>
-            <BiRename />
-            <input
-              className={styles.input_form}
-              type="text"
-              placeholder="Nombre de la oferta..."
-            />
-          </div>
-
-          <textarea
-            className={styles.textarea_form}
-            name=""
-            placeholder="Descripción del perfil que buscas..."
-          />
-
-          <div className={styles.content_form_input}>
-            <MdAlternateEmail />
-            <input
-              className={styles.input_form}
-              type="email"
-              placeholder="Ingresa el o los correos para enviar la CV..."
-            />
-          </div>
-
-          <ContentSeveralInfo />
-
-          <div className={styles.content_form_input}>
-            <AiOutlineFieldNumber />
-            <input
-              className={styles.input_form}
-              type="text"
-              placeholder="Cuantos trabajadores buscan?..."
-            />
-          </div>
-
-          <div className={styles.content_form_input}>
-            <FcIdea />
-            <input
-              className={styles.input_form}
-              type="text"
-              placeholder="Requerimientos necesarios"
-            />
-          </div>
-
-          <ContentSeveralInfo />
-
-          <div className={styles.content_form_input}>
-            <FaUniversalAccess />
-
-            <input
-              className={styles.input_form}
-              type="number"
-              placeholder="Que semestre buscas?..."
-            />
-          </div>
-
-          <div className={styles.content_form_input}>
-            <GiBrain />
-            <input
-              className={styles.input_form}
-              type="text"
-              placeholder="Habilidades necesarias..."
-            />
-          </div>
-
-          <ContentSeveralInfo />
-
-          <div className={styles.buttons}>
-            <button className={styles.button_send}>Publicar</button>
-            <button
-              className={styles.button_send}
-              onClick={() => setOpenAddOffert(false)}
-            >
-              Cancelar
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
+    <>
+      <OffersLayout
+        arrayHabilitiesState={arrayHabilitiesState}
+        arrayRequiredState={arrayRequiredState}
+        emailsArray={emailsArray}
+        formState={formState}
+        formSubmitted={formSubmitted}
+        formValidation={formValidation}
+        habilitiesArray={habilitiesArray}
+        onCloseModal={() => setOpenAddOffert(false)}
+        onInputChange={onInputChange}
+        onSelectEmails={onSelectEmails}
+        onSelectValues={onSelectValues}
+        onSubmitValues={onSubmitValues}
+        requirementArray={requirementArray}
+        setHabilitiesArray={setHabilitiesArray}
+        setOpenAddOffert={setOpenAddOffert}
+        setRequirementArray={setRequirementArray}
+        startLoading={startLoading}
+        title="Agregar oferta"
+      />
+    </>
   );
 };

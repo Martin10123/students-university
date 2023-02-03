@@ -2,7 +2,7 @@ import { collegeUniversity } from "../../../assets";
 
 import styles from "./welcomeVacation.module.css";
 
-export const WelcomeVacation = ({ setOpenCreator }) => {
+export const WelcomeVacation = ({ setOpenCreator, handleScroll }) => {
   return (
     <div className={styles.content_info_image}>
       <div className={styles.content_info_about_app}>
@@ -24,9 +24,12 @@ export const WelcomeVacation = ({ setOpenCreator }) => {
           >
             Crear una
           </button>
-          <a href="#found_vacation" className={styles.button_search_vacation}>
+          <button
+            className={styles.button_search_vacation}
+            onClick={handleScroll}
+          >
             Buscar vacacional
-          </a>
+          </button>
         </div>
       </div>
 

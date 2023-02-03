@@ -1,6 +1,3 @@
-import { deleteDoc, doc } from "firebase/firestore";
-import { firebaseDB } from "../../../firebase";
-
 import styles from "./styles.module.css";
 
 export const SureDelete = ({ setOpenSureDelete, onDeleteComment }) => {

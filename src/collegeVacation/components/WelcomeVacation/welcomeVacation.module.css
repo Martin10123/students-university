@@ -20,8 +20,7 @@
   grid-template-columns: 1fr 1fr;
 }
 
-.buttons > button,
-.buttons > a {
+.buttons > button {
   background: #0099ff;
   border-radius: 0.5rem;
   border: none;
@@ -30,12 +29,6 @@
   cursor: pointer;
   font-size: 1rem;
   height: 3rem;
-}
-
-.buttons > a {
-  align-items: center;
-  display: flex;
-  justify-content: center;
 }
 
 .imagen_college_university {
@@ -62,8 +55,7 @@
     width: 100%;
   }
 
-  .buttons > button,
-  .buttons > a {
+  .buttons > button {
     background: transparent;
     border: 1px solid #0099ff;
     box-shadow: none;
@@ -71,8 +63,7 @@
     transition: 0.4s ease-in-out;
   }
 
-  .buttons > button:hover,
-  .buttons > a:hover {
+  .buttons > button:hover {
     background: #0099ff;
     color: #fff;
     transition: 0.4s ease-in-out;

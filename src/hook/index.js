@@ -1,2 +1,3 @@
 export * from "./useForm";
-export * from "./useHiddenScroll";
+export * from "./useScroll";
+export * from "./useCloseModalOutside";

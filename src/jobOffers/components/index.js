@@ -1,3 +1,4 @@
 export * from "./CardOffert/CardOffert";
 export * from "./AddOffert/AddOffert";
-export * from "./CardOffertAlone/CardOffertAlone";
+export * from "./CardOffertAlone/page/CardOffertAlone";
+export * from "./layout";

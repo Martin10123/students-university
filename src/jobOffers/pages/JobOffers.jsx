@@ -1,15 +1,51 @@
-import { useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { collection, onSnapshot } from "firebase/firestore";
 import { AiOutlineAppstoreAdd } from "react-icons/ai";
 import { BiSearchAlt } from "react-icons/bi";
 import { meetingOffert } from "../../assets";
+import { firebaseDB } from "../../firebase";
 import { useScroll } from "../../hook";
 import { Navbar } from "../../ui/Navbar";
 import { AddOffert, CardOffert } from "../components";
+import { getOfferBy } from "../helpers";
 
 import styles from "./JobOffers.module.css";
 
 export const JobOffers = () => {
   const [openAddOffert, setOpenAddOffert] = useState(false);
+  const [offersJob, setOffersJob] = useState([]);
+  const [searchOfferJob, setSearchOfferJob] = useState("");
+  const myRef = useRef(null);
+
+  const handleScroll = () => {
+    window.scrollTo({
+      top: myRef.current.offsetTop,
+      behavior: "smooth",
+    });
+  };
+
+  useEffect(() => {
+    const unSuscribed = onSnapshot(
+      collection(firebaseDB, "offersJob"),
+      (offerJob) => {
+        const offers = offerJob.docs.map((doc) => {
+          return {
+            idDoc: doc.id,
+            ...doc.data(),
+          };
+        });
+
+        setOffersJob([...offers]);
+      }
+    );
+
+    return () => unSuscribed();
+  }, []);
+
+  const offersJobFilter = useMemo(
+    () => getOfferBy(offersJob, searchOfferJob),
+    [offersJob, searchOfferJob]
+  );
 
   useScroll([openAddOffert]);
 
@@ -35,7 +71,7 @@ export const JobOffers = () => {
               >
                 <AiOutlineAppstoreAdd /> Agregar oferta
               </button>
-              <button className={styles.button_search}>
+              <button className={styles.button_search} onClick={handleScroll}>
                 <BiSearchAlt />
                 Buscar oferta
               </button>
@@ -48,17 +84,24 @@ export const JobOffers = () => {
           />
         </div>
 
-        <div className={styles.title_result}>
+        <div ref={myRef} className={styles.title_result}>
           <h2>Ofertas</h2>
 
           <div className={styles.form_input_search_offert}>
-            <input type="text" placeholder="Buscar oferta..." />
+            <input
+              type="text"
+              placeholder="Buscar oferta..."
+              value={searchOfferJob}
+              onChange={(e) => setSearchOfferJob(e.target.value)}
+            />
             <BiSearchAlt />
           </div>
         </div>
 
         <div className={styles.container_card}>
-          <CardOffert />
+          {offersJobFilter.map((offerJob) => (
+            <CardOffert key={offerJob.idDoc} offerJob={offerJob} />
+          ))}
         </div>
       </div>
 
