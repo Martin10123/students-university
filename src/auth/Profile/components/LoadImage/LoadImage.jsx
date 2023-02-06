@@ -1,5 +1,6 @@
 import { useContext, useRef, useState } from "react";
 import { BsCamera } from "react-icons/bs";
+import Swal from "sweetalert2";
 import { AuthUserContext } from "../../../../context";
 import { loadImageProfileUser } from "../../../../helpers";
 
@@ -30,6 +31,7 @@ export const LoadImage = ({ setOpenAddImageProfile }) => {
       });
     } catch (error) {
       console.log(error);
+      Swal.fire("Error al cargar la imagen", "Intentalo otra vez", "error");
       setStartLoadingPhoto(false);
     }
   };

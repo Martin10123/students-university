@@ -1,5 +1,6 @@
 import { doc, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import Swal from "sweetalert2";
 import { firebaseDB, storage } from "../firebase";
 
 export const loadImageProfileUser = ({
@@ -27,8 +28,21 @@ export const loadImageProfileUser = ({
         updateDoc(docRef, {
           photoUrl: downloadURL,
         })
-          .then(() => {})
-          .catch((error) => console.log(error));
+          .then(() => {
+            Swal.fire(
+              "Se cargo correctamente",
+              "Se guardo correctamente la imagen",
+              "success"
+            );
+          })
+          .catch((error) => {
+            console.log(error);
+            Swal.fire(
+              "Error al cargar la imagen",
+              "Intentalo otra vez",
+              "error"
+            );
+          });
       });
 
       setStartLoadingPhoto(false);

@@ -1,18 +1,29 @@
+import { useState } from "react";
+import { HiEllipsisVertical } from "react-icons/hi2";
 import { photoUser } from "../../assets";
 import { getTimeAgo, shortName } from "../../helpers";
+import { useCloseModalOutside } from "../../hook";
 
 import styles from "./chatsApp.module.css";
 
-export const CardChatFilter = ({ chat, chatsFilters, onOpenChat }) => {
+export const CardChatFilter = ({
+  chat,
+  chatsFilters,
+  onOpenChat,
+  onDeleteChatUser,
+}) => {
+  const [openEllipsis, setOpenEllipsis] = useState(false);
   const { activeAgo, displayName, isActive, photoUrl, uid, username } = chat;
   const { chats } = chatsFilters;
 
+  const ref = useCloseModalOutside(() => setOpenEllipsis(false));
+
   return (
-    <div
-      className={styles.chat_message}
-      onClick={() => onOpenChat({ uid, username })}
-    >
-      <figure className={styles.img_user_message}>
+    <div className={styles.chat_message}>
+      <figure
+        className={styles.img_user_message}
+        onClick={() => onOpenChat({ uid, username })}
+      >
         <img
           src={photoUrl ? photoUrl : photoUser}
           alt={`Foto de perfil de Martin`}
@@ -20,7 +31,10 @@ export const CardChatFilter = ({ chat, chatsFilters, onOpenChat }) => {
         <p>{isActive ? "En linea" : getTimeAgo(activeAgo)}</p>
       </figure>
 
-      <div className={styles.name_user}>
+      <div
+        className={styles.name_user}
+        onClick={() => onOpenChat({ uid, username })}
+      >
         <p>{shortName(displayName)}</p>
         {Object.entries(chats).map(([idDoc, chatUser]) => {
           const {
@@ -46,6 +60,22 @@ export const CardChatFilter = ({ chat, chatsFilters, onOpenChat }) => {
           );
         })}
       </div>
+
+      <HiEllipsisVertical
+        className={styles.ellipsis_vertical}
+        onClick={() => setOpenEllipsis(true)}
+      />
+
+      {openEllipsis && (
+        <div ref={ref} className={styles.options_container}>
+          <p
+            className={styles.option_ellipsis}
+            onClick={() => onDeleteChatUser({ username })}
+          >
+            Eliminar chat
+          </p>
+        </div>
+      )}
     </div>
   );
 };

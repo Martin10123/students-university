@@ -7,7 +7,13 @@ import { useForm } from "../../hook";
 import { CardChatFilter } from "./CardChatFilter";
 import { shortName } from "../../helpers";
 import { firebaseDB } from "../../firebase";
-import { doc, onSnapshot, setDoc } from "firebase/firestore";
+import {
+  deleteField,
+  doc,
+  onSnapshot,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { getUserByChat } from "../helpers/getUsersByChat";
 
 import styles from "./chatsApp.module.css";
@@ -63,6 +69,18 @@ export const ChatsApp = ({
     }
   };
 
+  const onDeleteChatUser = async ({ username }) => {
+    try {
+      await updateDoc(
+        doc(firebaseDB, "usersChats", infoUserActive?.uid),
+        { [username]: deleteField() },
+        { merge: true }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <section className={styles.container_chat}>
       <div className={styles.return_nav}>
@@ -93,6 +111,7 @@ export const ChatsApp = ({
                 chat={chat}
                 chatsFilters={chatsFilters}
                 onOpenChat={onOpenChat}
+                onDeleteChatUser={onDeleteChatUser}
               />
             ))}
           </div>

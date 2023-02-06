@@ -1,6 +1,7 @@
 import { updateProfile } from "firebase/auth";
 import { doc, updateDoc } from "firebase/firestore";
 import { useState } from "react";
+import Swal from "sweetalert2";
 import { firebaseAuth, firebaseDB } from "../../../../firebase";
 import { allSubject } from "../../../../helpers";
 import { useForm } from "../../../../hook";
@@ -85,6 +86,7 @@ export const EditProfile = ({ setOpenEditProfile, userSelected }) => {
       setOpenEditProfile(false);
     } catch (error) {
       console.log(error);
+      Swal.fire("Error al editar tu perfil", "Intentalo otra vez", "error");
       setIsLoadingButton(false);
     }
   };
