@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { doc, updateDoc } from "firebase/firestore";
+import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { SureDelete } from "../../../boxComments/components";
 import { firebaseDB } from "../../../firebase";
 
@@ -25,9 +25,7 @@ export const ButtonsOnlyCreatorPull = ({
 
   const onDeletePull = async () => {
     try {
-      await updateDoc(doc(firebaseDB, `collegeVacation/${idDoc}`), {
-        deletePull: true,
-      });
+      await deleteDoc(doc(firebaseDB, `collegeVacation/${idDoc}`));
     } catch (error) {
       console.log(error);
     }

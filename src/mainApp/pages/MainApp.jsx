@@ -45,14 +45,6 @@ export const MainApp = () => {
             />
           </div>
 
-          <div className={styles.filter_catagories}>
-            <p onClick={() => setOpenFilter(true)}>
-              {filterByCategory.length !== 0
-                ? filterByCategory[0]
-                : "Filtrar por categoria"}
-            </p>
-          </div>
-
           {openFilter && (
             <FilterOptions
               data={allSubject}

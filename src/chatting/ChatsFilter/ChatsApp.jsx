@@ -7,7 +7,7 @@ import { useForm } from "../../hook";
 import { CardChatFilter } from "./CardChatFilter";
 import { shortName } from "../../helpers";
 import { firebaseDB } from "../../firebase";
-import { doc, onSnapshot } from "firebase/firestore";
+import { doc, onSnapshot, setDoc } from "firebase/firestore";
 import { getUserByChat } from "../helpers/getUsersByChat";
 
 import styles from "./chatsApp.module.css";
@@ -19,7 +19,6 @@ export const ChatsApp = ({
   users,
 }) => {
   const [chatsFilters, setChatsFilters] = useState([]);
-  const getUsersFilter = Object.entries(chatsFilters || []);
 
   const navigate = useNavigate();
   const { searchChat, onInputChange } = useForm({
@@ -32,20 +31,37 @@ export const ChatsApp = ({
     const docRef = doc(firebaseDB, "usersChats", infoUserActive?.uid);
 
     const unSuscribed = onSnapshot(docRef, (chat) => {
-      setChatsFilters(chat.data());
+      setChatsFilters({ idDoc: chat.id, chats: chat.data() });
     });
 
     return () => unSuscribed();
   }, [infoUserActive?.uid]);
 
   const getUsers = users?.filter((user) =>
-    getUsersFilter.find((chat) => user.uid === chat[1].uid)
+    Object.entries(chatsFilters.chats || [])?.find(
+      (chat) => user.uid === chat[1].uid
+    )
   );
 
   const chatsFilterMap = useMemo(
     () => getUserByChat(getUsers, searchChat),
     [getUsers, searchChat]
   );
+
+  const onOpenChat = async ({ username, uid }) => {
+    try {
+      setUidChatSelected(uid);
+      setopenChatMessage(true);
+
+      await setDoc(
+        doc(firebaseDB, "usersChats", infoUserActive?.uid),
+        { [username]: { isView: true } },
+        { merge: true }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <section className={styles.container_chat}>
@@ -70,16 +86,13 @@ export const ChatsApp = ({
         <div className={styles.content_chats_active}>
           <p className={styles.title_message}>Mensajes</p>
 
-          <div
-            className={styles.content_chats_to_message}
-            onClick={() => setopenChatMessage(true)}
-          >
+          <div className={styles.content_chats_to_message}>
             {chatsFilterMap.map((chat) => (
               <CardChatFilter
                 key={chat.idDoc}
                 chat={chat}
-                getUsersFilter={getUsersFilter}
-                setUidChatSelected={setUidChatSelected}
+                chatsFilters={chatsFilters}
+                onOpenChat={onOpenChat}
               />
             ))}
           </div>

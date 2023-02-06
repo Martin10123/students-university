@@ -97,12 +97,17 @@ export const JobOffers = () => {
             <BiSearchAlt />
           </div>
         </div>
-
-        <div className={styles.container_card}>
-          {offersJobFilter.map((offerJob) => (
-            <CardOffert key={offerJob.idDoc} offerJob={offerJob} />
-          ))}
-        </div>
+        {offersJobFilter.length !== 0 ? (
+          <div className={styles.container_card}>
+            {offersJobFilter.map((offerJob) => (
+              <CardOffert key={offerJob.idDoc} offerJob={offerJob} />
+            ))}
+          </div>
+        ) : (
+          <p className={styles.not_vacations_by_filter}>
+            No se ha agregado ninguna oferta
+          </p>
+        )}
       </div>
 
       {openAddOffert && <AddOffert setOpenAddOffert={setOpenAddOffert} />}

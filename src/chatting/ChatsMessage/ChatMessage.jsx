@@ -100,7 +100,7 @@ export const ChatMessage = ({
         <ContentMessages
           infoUserActive={infoUserActive}
           messages={messages}
-          photoUrl={photoUrl}
+          findUserSelected={findUserSelected}
           combinedUid={combinedUid}
         />
 

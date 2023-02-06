@@ -3,17 +3,14 @@ import { getTimeAgo, shortName } from "../../helpers";
 
 import styles from "./chatsApp.module.css";
 
-export const CardChatFilter = ({
-  setUidChatSelected,
-  chat,
-  getUsersFilter,
-}) => {
-  const { displayName, uid, photoUrl, activeAgo, isActive } = chat;
+export const CardChatFilter = ({ chat, chatsFilters, onOpenChat }) => {
+  const { activeAgo, displayName, isActive, photoUrl, uid, username } = chat;
+  const { chats } = chatsFilters;
 
   return (
     <div
       className={styles.chat_message}
-      onClick={() => setUidChatSelected(uid)}
+      onClick={() => onOpenChat({ uid, username })}
     >
       <figure className={styles.img_user_message}>
         <img
@@ -25,14 +22,27 @@ export const CardChatFilter = ({
 
       <div className={styles.name_user}>
         <p>{shortName(displayName)}</p>
-        {getUsersFilter.map((chatUser) => {
+        {Object.entries(chats).map(([idDoc, chatUser]) => {
+          const {
+            lastMessage: message,
+            isView,
+            whoWritteMessage,
+            uid: uidChatting,
+          } = chatUser;
+
           const lastMessage =
-            chatUser[1]?.lastMessage.length >= 24
-              ? chatUser[1]?.lastMessage?.substring(0, 24) + "..."
-              : chatUser[1]?.lastMessage;
+            message.length >= 24 ? message?.substring(0, 24) + "..." : message;
+
+          const isViewOrNot = { fontWeight: isView ? "300" : "bold" };
+
+          const whoIs = whoWritteMessage === uid ? "Otro: " : "Tú: ";
 
           return (
-            chatUser[1]?.uid === uid && <p key={chatUser[0]}>{lastMessage}</p>
+            uidChatting === uid && (
+              <p style={isViewOrNot} key={idDoc}>
+                {whoIs} {lastMessage}
+              </p>
+            )
           );
         })}
       </div>

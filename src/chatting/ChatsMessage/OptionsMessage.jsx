@@ -66,10 +66,12 @@ export const OptionsMessage = ({
           <AiOutlineCopy />
           {copy ? copy : "Copiar"}
         </p>
-        <p className={styles.item} onClick={() => onDeleteMessage("forMy")}>
-          <TiDelete />
-          Borrar mensaje para mi
-        </p>
+        {!deleteForMy.includes(infoUserActive.uid) && (
+          <p className={styles.item} onClick={() => onDeleteMessage("forMy")}>
+            <TiDelete />
+            Borrar mensaje para mi
+          </p>
+        )}
         {infoUserActive.uid === uid && (
           <p className={styles.item} onClick={() => onDeleteMessage("delete")}>
             <AiFillDelete />

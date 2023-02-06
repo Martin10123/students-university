@@ -16,6 +16,7 @@ export const InputSendMessage = ({
           <BsFillCameraFill className={styles.svg_input} />
         </div>
         <input
+          autoComplete="off"
           type="text"
           placeholder="Enviar un mensaje..."
           className={styles.input_form_value}

@@ -7,14 +7,21 @@ import {
 } from "firebase/firestore";
 import { firebaseDB } from "../../firebase";
 
-const handleAddNewInfo = async (data, uidPath, message) => {
+const handleAddNewInfo = async ({
+  data,
+  uidPath,
+  message,
+  whoWritteMessage,
+}) => {
   await setDoc(
     doc(firebaseDB, "usersChats", uidPath),
     {
       [data?.username]: {
-        lastMessage: message,
         createMessage: serverTimestamp(),
+        isView: false,
+        lastMessage: message,
         uid: data?.uid,
+        whoWritteMessage,
       },
     },
     { merge: true }
@@ -33,15 +40,28 @@ export const onSendingMessage = async ({
 
     await addDoc(docRef, {
       createMessage: new Date().getTime(),
-      message,
-      uid: infoUserActive?.uid,
-      username: infoUserActive?.username,
       deleteForMy: [],
       isView: false,
+      message,
+      uid: infoUserActive?.uid,
+      uidOtherUser: userSelected?.uid,
+      username: infoUserActive?.username,
+      usernameOtherUser: userSelected?.username,
     });
 
-    await handleAddNewInfo(infoUserActive, userSelected?.uid, message);
-    await handleAddNewInfo(userSelected, infoUserActive?.uid, message);
+    await handleAddNewInfo({
+      data: infoUserActive,
+      message,
+      uidPath: userSelected?.uid,
+      whoWritteMessage: infoUserActive?.uid,
+    });
+
+    await handleAddNewInfo({
+      data: userSelected,
+      message,
+      uidPath: infoUserActive?.uid,
+      whoWritteMessage: infoUserActive?.uid,
+    });
 
     navigate("/chat");
   } catch (error) {

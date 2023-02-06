@@ -68,26 +68,9 @@
   width: 100%;
 }
 
-.filter_catagories {
-  align-items: center;
-  display: flex;
-  justify-content: flex-end;
-  padding: 1rem 0;
-}
-
-.filter_catagories > p {
-  background: #fff;
-  border-radius: 1rem;
-  box-shadow: 1px 1px 6px #80808074;
-  color: #4e42d4;
-  cursor: pointer;
-  font-size: 1.1rem;
-  padding: 0.5rem 1rem;
-  width: fit-content;
-}
-
 .title_result {
   font-size: 2.2rem;
+  margin: 1rem 0 0;
 }
 
 hr {

@@ -76,16 +76,22 @@ export const MainStore = () => {
           <p>Productos</p>
         </div>
 
-        <div className={styles.container_card}>
-          {productsFilter.map((product) => (
-            <CardProduct
-              key={product.idDoc}
-              product={product}
-              infoUserActive={infoUserActive}
-              users={users}
-            />
-          ))}
-        </div>
+        {productsFilter.length !== 0 ? (
+          <div className={styles.container_card}>
+            {productsFilter.map((product) => (
+              <CardProduct
+                key={product.idDoc}
+                product={product}
+                infoUserActive={infoUserActive}
+                users={users}
+              />
+            ))}
+          </div>
+        ) : (
+          <p className={styles.not_vacations_by_filter}>
+            No se ha agregado ninguna producto
+          </p>
+        )}
       </div>
     </section>
   );
