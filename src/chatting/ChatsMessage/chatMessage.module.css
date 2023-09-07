@@ -1,6 +1,6 @@
 .container {
   background: #fff;
-  height: 100vh;
+  height: 100%;
   left: 0;
   position: fixed;
   top: 0;
@@ -136,11 +136,12 @@
 
 .form_input {
   margin: 0.2rem 0;
+  padding: 0.5rem;
 }
 
 .input_div {
   align-items: center;
-  background: #8080806b;
+  background: #80808040;
   border-radius: 3rem;
   display: grid;
   gap: 0.5rem;
@@ -168,6 +169,7 @@
   font-size: 1rem;
   outline: none;
   padding: 0.5rem;
+  width: 100%;
 }
 
 .content_other_svg {
@@ -221,6 +223,10 @@
 .item svg {
   color: #0099ff;
   font-size: 1.5rem;
+}
+
+.show_message_not_selected {
+  display: none;
 }
 
 /* Options menu */

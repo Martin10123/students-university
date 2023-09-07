@@ -1,8 +1,5 @@
-import { addDoc, collection } from "firebase/firestore";
 import { BsArrowLeft } from "react-icons/bs";
 import { ArticlePreview } from "../../";
-import { firebaseDB } from "../../../firebase";
-import { fileUpload } from "../../../helpers";
 
 import { useFormProduct } from "../../Hook/useFormProduct";
 import { FormProduct } from "../components";
