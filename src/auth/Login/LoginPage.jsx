@@ -15,8 +15,8 @@ import { useForm } from "../../hook";
 import styles from "./login.module.css";
 
 const formLogin = {
-  email: "",
-  password: "",
+  email: "admin@admin.com",
+  password: "admin12345",
 };
 
 export const LoginPage = () => {
